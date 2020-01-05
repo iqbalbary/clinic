@@ -1,4 +1,10 @@
-<?php require_once('db.php');?>
+<?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+$base_url = "http://localhost/clinic/";
+require_once('db.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -8,13 +14,13 @@
 
 		<title>Clinic</title>
 
-		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">	
-		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+		<link rel="stylesheet" type="text/css" href="<?php  echo $base_url; ?>assets/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="<?php  echo $base_url; ?>assets/css/font-awesome.css">	
+		<link rel="stylesheet" type="text/css" href="<?php  echo $base_url; ?>assets/css/style.css">
     	
-		<script type="text/javascript" src="assets/js/jquery-1.11.3.min.js"></script>	
-		<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="assets/js/custom.js"></script>
+		<script type="text/javascript" src="<?php  echo $base_url; ?>assets/js/jquery-1.11.3.min.js"></script>	
+		<script type="text/javascript" src="<?php  echo $base_url; ?>assets/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="<?php  echo $base_url; ?>assets/js/custom.js"></script>
 	</head>
 	<body>
 
@@ -22,35 +28,35 @@
   			<div class="container">
 			    <!-- Brand and toggle get grouped for better mobile display -->
 			    <div class="navbar-header">
-			      	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			      	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="<?php  echo $base_url; ?>bs-example-navbar-collapse-1" aria-expanded="false">
 			        	<span class="sr-only">Toggle navigation</span>
 			        	<span class="icon-bar"></span>
 			        	<span class="icon-bar"></span>
 			        	<span class="icon-bar"></span>
 			      	</button>
-			      	<a class="navbar-brand" href="#">Clinic</a>
+			      	<a class="navbar-brand" href="<?php  echo $base_url; ?>">Clinic</a>
 			    </div>
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      	<ul class="nav navbar-nav navbar-right">
-			        	<li><a href="index.php">Home</a></li>
+			        	<li><a href="<?php  echo $base_url; ?>index.php">Home</a></li>
 			        	<li class="dropdown">
-			          		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Deposit <span class="caret"></span></a>
+			          		<a href="<?php  echo $base_url; ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Deposit <span class="caret"></span></a>
 				          	<ul class="dropdown-menu">
-				            	<li><a href="#">All Deposits</a></li>
-				            	<li><a href="#">Add Deposit</a></li>
+				            	<li><a href="<?php  echo $base_url; ?>deposit/deposits.php">All Deposits</a></li>
+				            	<li><a href="<?php  echo $base_url; ?>deposit/add-deposit.php">Add Deposit</a></li>
 				            	<li role="separator" class="divider"></li>
-				            	<li><a href="#">Edit Deposit</a></li>
+				            	<li><a href="<?php  echo $base_url; ?>deposit/edit-deposit.php">Edit Deposit</a></li>
 				          	</ul>
 			        	</li>
 			        	<li class="dropdown">
-			          		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
+			          		<a href="<?php  echo $base_url; ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
 				          	<ul class="dropdown-menu">
-				            	<li><a href="#">Users</a></li>
-				            	<li><a href="#">Edit Profile</a></li>
+				            	<li><a href="<?php  echo $base_url; ?>user/users.php">Users</a></li>
+				            	<li><a href="<?php  echo $base_url; ?>user/edit-user.php">Edit Profile</a></li>
 				            	<li role="separator" class="divider"></li>
-				            	<li><a href="#">Add User</a></li>
-				            	<li><a href="#">Remove User</a></li>
+				            	<li><a href="<?php  echo $base_url; ?>user/add-user.php">Add User</a></li>
+				            	<li><a href="<?php  echo $base_url; ?>/user/remove-user.php">Remove User</a></li>
 				          	</ul>
 			        	</li>
 			      	</ul>
