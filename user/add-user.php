@@ -2,7 +2,9 @@
 //Add new user - Form
 //Only for Admin
 
-
+if(!$isSession ){
+    header("Location: ".$base_url."index.php");
+}
 require_once('../header.php');
 $tableDataArr = array();
 ?>
@@ -14,7 +16,8 @@ if(isset($_POST['Name'])){
     $insertArr = array(
         "Name"=> $name,
         "Email"=> $_POST['Email'],
-        "Phone"=> $_POST['Phone']
+        "Phone"=> $_POST['Phone'],
+        "Password"=>sha1("1234")
     );
    $sql=  insetrtData("User", $insertArr);
    $insertFlag = $db->query($sql);

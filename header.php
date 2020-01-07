@@ -2,7 +2,12 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+session_start();
 $base_url = "http://localhost/clinic/";
+$isSession = false;
+if( isset($_SESSION["USER_ID"])){
+	$isSession = true;
+}
 require_once('db.php');
 ?>
 <!DOCTYPE html>
@@ -40,6 +45,7 @@ require_once('db.php');
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      	<ul class="nav navbar-nav navbar-right">
 			        	<li><a href="<?php  echo $base_url; ?>index.php">Home</a></li>
+			        	<?php if($isSession){ ?>
 			        	<li class="dropdown">
 			          		<a href="<?php  echo $base_url; ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Deposit <span class="caret"></span></a>
 				          	<ul class="dropdown-menu">
@@ -54,11 +60,16 @@ require_once('db.php');
 				          	<ul class="dropdown-menu">
 				            	<li><a href="<?php  echo $base_url; ?>user/users.php">Users</a></li>
 				            	<li><a href="<?php  echo $base_url; ?>user/edit-user.php">Edit Profile</a></li>
+				            	<li><a href="<?php  echo $base_url; ?>changePassword.php">Change Password</a></li>
+				            	<li><a href="<?php  echo $base_url; ?>logOut.php"> Log Out </a></li>
 				            	<li role="separator" class="divider"></li>
 				            	<li><a href="<?php  echo $base_url; ?>user/add-user.php">Add User</a></li>
 				            	<li><a href="<?php  echo $base_url; ?>/user/remove-user.php">Remove User</a></li>
 				          	</ul>
 			        	</li>
+			        	<?php }else{ ?>
+			        	<li><a href="<?php  echo $base_url; ?>login.php">Log in</a></li>
+			        <?php } ?>
 			      	</ul>
 			    </div><!-- /.navbar-collapse -->
   			</div><!-- /.container-fluid -->

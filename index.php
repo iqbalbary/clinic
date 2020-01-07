@@ -1,6 +1,8 @@
 <?php
 //Dashboard
 require_once('header.php');
+
+if($isSession){
 ?>
 <div class="container">
 	<div class="row">
@@ -46,4 +48,12 @@ require_once('header.php');
 
 
 <?php
+
+}else{
+	?>
+	<div class="container">
+		<a href="login.php"> Log In </a>
+	</div>
+	<?php 
+}
 require_once('footer.php');

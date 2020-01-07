@@ -38,6 +38,45 @@
     
  }
 
+
+ function updateSql ( $tableName= "", $data=array(), $condition=array()){
+
+    $sqlStr = "";
+    $setStr = "";
+    $conditionSql = "";
+
+    if($tableName){
+        $sqlStr = 'UPDATE ' . $tableName;
+    }
+
+    if(sizeof($data)){
+        $setArr = array();
+        foreach( $data as $key => $value){
+            $setArr[] = " ".$key." ='".$value."' ";
+        }
+        $setStr = ' SET  ' . implode(" , ",$setArr) . '  ';
+    }
+
+    if(sizeof($condition)){
+        $conditionItemStringArr = array();
+        foreach ($condition as  $item) {
+            $conditionItemStringArr[] = " ". $item['fieldName'] . " " . $item['symbol'] . " '" . $item['value'] ."'";
+        }
+
+        if(sizeof($conditionItemStringArr)){
+            $conditionSql = " WHERE " . implode(" , ", $conditionItemStringArr);
+        }
+    }
+
+    if($sqlStr){
+        $sqlStr .= " ". $setStr . " " . $conditionSql;
+       return $sqlStr;
+    }
+    return "";
+
+
+ }
+
  function fetchAllDataById($tableName="", $selectedFieldList=array(),  $conditionFielArr=array()  ){
 // SELECT * FROM Customers WHERE Country='Mexico';
     $returnSql = "";
