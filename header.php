@@ -5,8 +5,10 @@ error_reporting(E_ALL);
 session_start();
 $base_url = "http://localhost/clinic/";
 $isSession = false;
+$userRole = 1;
 if( isset($_SESSION["USER_ID"])){
 	$isSession = true;
+	$userRole = $_SESSION["User_Role"];
 }
 require_once('db.php');
 ?>
@@ -62,9 +64,11 @@ require_once('db.php');
 				            	<li><a href="<?php  echo $base_url; ?>user/edit-user.php">Edit Profile</a></li>
 				            	<li><a href="<?php  echo $base_url; ?>changePassword.php">Change Password</a></li>
 				            	<li><a href="<?php  echo $base_url; ?>logOut.php"> Log Out </a></li>
+				            	<?php  if($userRole == 2){ ?>
 				            	<li role="separator" class="divider"></li>
 				            	<li><a href="<?php  echo $base_url; ?>user/add-user.php">Add User</a></li>
 				            	<li><a href="<?php  echo $base_url; ?>/user/remove-user.php">Remove User</a></li>
+				            	<?php  } ?>
 				          	</ul>
 			        	</li>
 			        	<?php }else{ ?>

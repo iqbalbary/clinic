@@ -1,11 +1,11 @@
 <?php
 //Add new user - Form
 //Only for Admin
-
+require_once('../header.php');
 if(!$isSession ){
     header("Location: ".$base_url."index.php");
 }
-require_once('../header.php');
+
 $tableDataArr = array();
 ?>
 <div class="container">
@@ -45,7 +45,7 @@ if(isset($_POST['Name'])){
 ?>
     <form action="" method='post'>
         <div class="form-group">
-            <label for="exampleInputPassword1">Name</label>
+            <label for="Name">Name</label>
             <input type="text" class="form-control" value="<?php echo $tableDataArr->Name; ?>"  required='true' name="Name" placeholder="Mr. X">
         </div>
         <div class="form-group">

@@ -40,22 +40,33 @@ if(isset($_POST) && sizeof($_POST)){
         unset($updateDataArray['USER_ID']);
     }
 
-    var_dump($_FILES);
+    if(isset($_FILES["Image"])){
+        $target_dir = "../uploads/User/Image";
+        $imgUploadStatus =  fileUpload( $target_dir, "Image");
+        if($imgUploadStatus['status']){
+            $updateDataArray['Image'] = $imgUploadStatus['fileName'];
+        }
 
-if(isset($_FILES["Image"])){
+    }
 
-    fileUpload("Image");
-}
+    if(isset($_FILES["NID_Screenshot"])){
+        $target_dir = "../uploads/User/NID_Screenshot";
+        $NidUploadStatus =  fileUpload( $target_dir, "NID_Screenshot");
+        if($NidUploadStatus['status']){
+            $updateDataArray['NID_Screenshot'] = $NidUploadStatus['fileName'];
+        }
+    }
 
     $updateSqlStr = updateSql("User", $updateDataArray, $condintion );
+
     $updateFlag = $db->query($updateSqlStr);
     if($updateFlag){
-        // header("Location: ".$base_url."user/edit-user.php");
+        header("Location: ".$base_url."user/edit-user.php");
     }
 }
 ?>
 <div class="container">
-<form action="" method='post'>
+<form action="" method='post' enctype="multipart/form-data">
     <div class="form-group">
         <label for="USER_ID"> USER ID </label>
         <input type="text" class="form-control" value="<?php echo $newUserData["USER_ID"] ?>"  readonly  name="USER_ID" placeholder="Mr. X">
@@ -67,15 +78,15 @@ if(isset($_FILES["Image"])){
     <div class="form-group">
         <label for="User_Role">User Role</label>
         <select  class="form-control"  name="User_Role">
-            <option   value="1"> Subscriber </option>
-            <option selected value="2">Admin</option>
+            <option  <?php if( $newUserData["User_Role"] == 1) echo "selected"; ?>  value="1"> Subscriber </option>
+            <option <?php if( $newUserData["User_Role"] == 2) echo "selected"; ?>  value="2">Admin</option>
       </select>
     </div>
     <div class="form-group">
         <label for="Verified">Verify status</label>
         <select  class="form-control"  name="Verified">
-            <option  value="1"> Pendidng </option>
-            <option selected value="2"> Verified </option>
+            <option <?php if( $newUserData["Verified"] == 0) echo "selected"; ?> value="0"> Pendidng </option>
+            <option <?php if( $newUserData["Verified"] == 1) echo "selected"; ?> value="1"> Verified </option>
       </select>
     </div>
     <div class="form-group">
@@ -85,6 +96,7 @@ if(isset($_FILES["Image"])){
     <div class="form-group">
         <label for="Image">Image</label>
         <input type="file" class="form-control-file" name="Image" id="Image">
+        <img class="profile_img" src="<?php echo $base_url ."uploads/User/Image/".trim($newUserData["Image"])  ?>" alt="Image" />
     </div>
     <div class="form-group">
         <label for="NID">NID</label>
@@ -92,7 +104,8 @@ if(isset($_FILES["Image"])){
     </div>
     <div class="form-group">
         <label for="NID_Screenshot">NID Screenshot</label>
-        <input type="file" class="form-control-file" name="NID_Screenshot" id="Image">
+        <input type="file" class="form-control-file" name="NID_Screenshot">
+        <img src="<?php echo $base_url ."uploads/User/NID_Screenshot/".trim($newUserData["NID_Screenshot"])  ?>" alt="NID_Screenshot" />
     </div>
     <div class="form-group">
         <label for="Father_Name">Father Name</label>
@@ -129,7 +142,7 @@ if(isset($_FILES["Image"])){
     <div class="form-group">
         <label for="Address">Address</label>
         <textarea  type="textarea" class="md-textarea form-control"   required="true"  name="Address" placeholder="Address" rows="5"  cols="6" >
-<?php echo $newUserData["Address"] ?>
+            <?php echo $newUserData["Address"] ?>
          </textarea>
     </div>
     <div class="form-group">
@@ -145,8 +158,8 @@ if(isset($_FILES["Image"])){
     <div class="form-group">
         <label for="Status">Status</label>
         <select  class="form-control"  name="Status">
-            <option  value="1"> Active</option>
-            <option selected value="0">In Active</option>
+            <option <?php if( $newUserData["Status"] == 1) echo "selected"; ?> value="1"> Active</option>
+            <option <?php if( $newUserData["Status"] == 0) echo "selected"; ?> value="0">In Active</option>
       </select>
     </div>
     <button type="submit" class="btn btn-primary"  name="submit">Submit</button>
