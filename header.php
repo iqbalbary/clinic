@@ -24,10 +24,15 @@ require_once('db.php');
 		<link rel="stylesheet" type="text/css" href="<?php  echo $base_url; ?>assets/css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="<?php  echo $base_url; ?>assets/css/font-awesome.css">	
 		<link rel="stylesheet" type="text/css" href="<?php  echo $base_url; ?>assets/css/style.css">
+		<link rel="stylesheet" type="text/css" href="<?php  echo $base_url; ?>assets/css/select2.min.css">
+
     	
 		<script type="text/javascript" src="<?php  echo $base_url; ?>assets/js/jquery-1.11.3.min.js"></script>	
 		<script type="text/javascript" src="<?php  echo $base_url; ?>assets/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="<?php  echo $base_url; ?>assets/js/custom.js"></script>
+		<script type="text/javascript" src="<?php  echo $base_url; ?>assets/js/select2.min.js"></script>
+		<script type="text/javascript">
+			var baseUrl  = '<?php echo $base_url; ?>';
+		</script>
 	</head>
 	<body>
 

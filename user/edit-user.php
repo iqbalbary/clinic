@@ -11,7 +11,7 @@ $condintion = array();
 $id = $_SESSION["USER_ID"];
 
 if(isset($_GET) && isset($_GET['id'])){
-    $id = int($_GET['id']);
+    $id = (int) $_GET['id'];
 }
 
 $condintion[] = array(
@@ -46,7 +46,6 @@ if(isset($_POST) && sizeof($_POST)){
         if($imgUploadStatus['status']){
             $updateDataArray['Image'] = $imgUploadStatus['fileName'];
         }
-
     }
 
     if(isset($_FILES["NID_Screenshot"])){
@@ -91,7 +90,7 @@ if(isset($_POST) && sizeof($_POST)){
     </div>
     <div class="form-group">
         <label for="Verification_ID">Verification ID</label>
-        <input type="text" class="form-control" value="<?php echo $newUserData["Verification_ID"] ?>"  required="true"  name="Verification_ID" >
+        <p> <?php echo $newUserData["Verification_ID"] ?> </p>
     </div>
     <div class="form-group">
         <label for="Image">Image</label>
