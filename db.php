@@ -1,6 +1,7 @@
 <?php 
 
- $db = mysqli_connect("localhost","root","12345678","clinic");
+
+  $db = mysqli_connect("localhost","root","12345678","clinic");
 
  if (mysqli_connect_errno()) 
  {
@@ -21,8 +22,31 @@
      12 => 'December'
     );
 
+ function updateData($tableName= "", $data=array(), $condition=array()){
+    $sql = updateSql( $tableName, $data, $condition );
+     return $GLOBALS['db']->query($sql);
+ }
 
- function insetrtData ( $tableName="", $data=array()){
+ function insetrtDataFunc($tableName="", $data=array()){
+    $sql=  insetrtDataSql($tableName, $data);
+    return $GLOBALS['db']->query($sql);
+ }
+
+ function dataFetchUsingTable($tableName="", $selectedFieldList=array(),  $conditionFielArr=array()){
+    $sql = fetchAllDataById($tableName, $selectedFieldList, $conditionFielArr);
+    $dataObj = $GLOBALS['db']->query($sql);
+    $dataArr = array();
+
+    if($dataObj->num_rows >0){
+        while ($row = $dataObj->fetch_assoc()) {
+            $dataArr[] = $row;
+        }
+    }
+
+    return $dataArr;
+ }
+
+ function insetrtDataSql ( $tableName="", $data=array()){
     $sqlStr = "";
     $valueStr = "";
     $fieldStr = "";
@@ -92,7 +116,6 @@
  }
 
  function fetchAllDataById($tableName="", $selectedFieldList=array(),  $conditionFielArr=array()  ){
-// SELECT * FROM Customers WHERE Country='Mexico';
     $returnSql = "";
     if(sizeof($selectedFieldList)){
         $returnSql = "SELECT ". implode(" , ",$selectedFieldList) ." FROM ";

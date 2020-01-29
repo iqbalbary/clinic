@@ -20,11 +20,10 @@ $condintion[] = array(
     'value' => $id
 );
 
-$getNewUserDataSql =  fetchAllDataById("User", array('*'),  $condintion);
-$getNewUserData = $db->query($getNewUserDataSql);
+$getNewUserDataArr =  dataFetchUsingTable("User", array('*'),  $condintion);
 
-if($getNewUserData->num_rows >0){
-    $newUserData = $getNewUserData->fetch_assoc();
+if( sizeof($getNewUserDataArr) > 0){
+    $newUserData = $getNewUserDataArr[0];
 }
  
 
@@ -56,9 +55,7 @@ if(isset($_POST) && sizeof($_POST)){
         }
     }
 
-    $updateSqlStr = updateSql("User", $updateDataArray, $condintion );
-
-    $updateFlag = $db->query($updateSqlStr);
+    $updateFlag = updateData("User", $updateDataArray, $condintion );
     if($updateFlag){
         header("Location: ".$base_url."user/edit-user.php");
     }

@@ -37,8 +37,7 @@ if(isset($_POST['Amount'])){
         }
     }
 
-    $sql=  insetrtData("deposite", $insertArr);
-    $insertFlag = $db->query($sql);
+    $insertFlag=  insetrtDataFunc("deposite", $insertArr);
 
     if($insertFlag){
         

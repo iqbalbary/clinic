@@ -1,5 +1,5 @@
 <?php
-require_once('header.php');
+include('header.php');
 if($isSession){
 	header("Location: ".$base_url."index.php");
 }
@@ -12,12 +12,10 @@ if($_POST  && isset($_POST["USER_ID"])){
         'value' => $_POST["USER_ID"]
     );
     
-    $getNewUserDataSql =  fetchAllDataById("User", array('*'),  $condintion);
-    $loginUserDataObj = $db->query($getNewUserDataSql);
+    $loginUserDataArr =  dataFetchUsingTable("User", array('*'),  $condintion);
 
-    if($loginUserDataObj->num_rows >0){
-        $loginUserData = $loginUserDataObj->fetch_assoc();
-        $loginUserData['USER_ID'];
+    if( sizeof($loginUserDataArr)>0){
+        $loginUserData = $loginUserDataArr[0];
         if($loginUserData['Password'] == sha1( $_POST["Password"] )){
         	$_SESSION["USER_ID"] = $loginUserData['USER_ID'];
         	$_SESSION["User_Role"] = $loginUserData['User_Role'];
@@ -26,11 +24,7 @@ if($_POST  && isset($_POST["USER_ID"])){
     }
 }
 
-//Dashboard
-
 ?>
-
-
 <div class="container">
 	<form action="" method='post'>
         <div class="form-group">

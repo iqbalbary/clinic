@@ -4,8 +4,7 @@ require_once('../header.php');
 if(!$isSession){
     header("Location: ".$base_url."index.php");
 }
-$userListQuery = fetchAllDataById("User", array('*'));
-$userListObj = $db->query($userListQuery);
+$userListArr = dataFetchUsingTable("User", array('*'));
 ?>
 <div class="container">
 	<div class="row">
@@ -23,8 +22,7 @@ $userListObj = $db->query($userListQuery);
 				</thead>
 				<tbody>
 					<?php  
-					if($userListObj->num_rows >0){
-						while ($row = $userListObj->fetch_assoc()) { 
+					 	foreach ($userListArr as $row) {
 							?>
 								<tr>
 									<td>  <?php  echo $row["USER_ID"]; ?></td>
@@ -35,7 +33,6 @@ $userListObj = $db->query($userListQuery);
 								</tr>
 							<?php 
 						}
-					}
 					 ?>
 				</tbody>
 			</table>

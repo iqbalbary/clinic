@@ -63,6 +63,11 @@ img.profile_img{
 	position: relative;
 }
 
+.image-label-block{
+	display: flex;
+	flex-direction: column;
+}
+
 .list-item-container .item span{
 	padding-left: 15px;
 }
@@ -79,6 +84,9 @@ img.profile_img{
 	justify-content: space-between;
 	border-radius: 5px;
 	cursor: pointer;
+	display: flex;
+    align-items: center;
+    margin-right: 10px;
 }
 .input-item-block img{
 	display: block;

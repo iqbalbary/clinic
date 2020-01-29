@@ -6,7 +6,6 @@ if(!$isSession ){
     header("Location: ".$base_url."index.php");
 }
 
-$tableDataArr = array();
 ?>
 <div class="container">
 <?php 
@@ -19,8 +18,7 @@ if(isset($_POST['Name'])){
         "Phone"=> $_POST['Phone'],
         "Password"=>sha1("1234")
     );
-   $sql=  insetrtData("User", $insertArr);
-   $insertFlag = $db->query($sql);
+   $insertFlag=  insetrtDataFunc("User", $insertArr);
 
    if($insertFlag){
     $condintion = array();
@@ -29,11 +27,10 @@ if(isset($_POST['Name'])){
         'symbol' => " = ",
         'value' => $db->insert_id
     );
-    $getNewUserDataSql =  fetchAllDataById("User", array('*'),  $condintion);
-    $getNewUserData = $db->query($getNewUserDataSql);
+    $getNewUserDataArr =  dataFetchUsingTable("User", array('*'),  $condintion);
 
-    if($getNewUserData->num_rows >0){
-        $newUserData = $getNewUserData->fetch_assoc();
+    if( sizeof($getNewUserDataArr)>0){
+        $newUserData = $getNewUserDataArr[0];
     }
    }
     
@@ -46,7 +43,7 @@ if(isset($_POST['Name'])){
     <form action="" method='post'>
         <div class="form-group">
             <label for="Name">Name</label>
-            <input type="text" class="form-control" value="<?php echo $tableDataArr->Name; ?>"  required='true' name="Name" placeholder="Mr. X">
+            <input type="text" class="form-control" required='true' name="Name" placeholder="Mr. X">
         </div>
         <div class="form-group">
             <label for="email">Email address</label>
