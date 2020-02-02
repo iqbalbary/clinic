@@ -24,3 +24,5 @@ function fileUpload( $target_dir,  $fieldName=""){
 
 	return  $returnArr;
 }
+
+?>

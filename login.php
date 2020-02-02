@@ -26,14 +26,14 @@ if($_POST  && isset($_POST["USER_ID"])){
 
 ?>
 <div class="container">
-	<form action="" method='post'>
+    <form action="" method='post'>
         <div class="form-group">
             <label for="USER_ID">USER ID</label>
             <input type="text" class="form-control" required='true' name="USER_ID" placeholder="1">
         </div>
         <div class="form-group">
             <label for="Password"> Password </label>
-            <input type="password" required="required" class="form-control" name="Password"  placeholder="****">
+            <input type="password" required="required" class="form-control" name="Password" placeholder="****">
         </div>
         <button type="submit" class="btn btn-primary" name='submit'>Submit</button>
     </form>

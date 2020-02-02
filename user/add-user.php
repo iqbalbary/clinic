@@ -8,7 +8,7 @@ if(!$isSession ){
 
 ?>
 <div class="container">
-<?php 
+    <?php 
 if(isset($_POST['Name'])){
     $name= trim($_POST['Name']);
 
@@ -35,7 +35,7 @@ if(isset($_POST['Name'])){
    }
     
     ?>
-    <p> Successfully new user created. user Id <?php echo $newUserData['USER_ID']; ?> <a href=""> add new user </a>  </p>
+    <p> Successfully new user created. user Id <?php echo $newUserData['USER_ID']; ?> <a href=""> add new user </a> </p>
     <?php 
 }else{
 
@@ -47,15 +47,17 @@ if(isset($_POST['Name'])){
         </div>
         <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" required="required" class="form-control" name="Email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="abc@bb.co">
+            <input type="email" required="required" class="form-control" name="Email" id="exampleInputEmail1"
+                aria-describedby="emailHelp" placeholder="abc@bb.co">
         </div>
         <div class="form-group">
             <label for="Phone">Phone Number</label>
-            <input type="text" required="required" class="form-control" name="Phone" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="+8801763015332">
+            <input type="text" required="required" class="form-control" name="Phone" id="exampleInputEmail1"
+                aria-describedby="emailHelp" placeholder="+8801763015332">
         </div>
         <button type="submit" class="btn btn-primary" name='submit'>Submit</button>
     </form>
-   <?php   }  ?>
+    <?php   }  ?>
 </div>
 <?php
 

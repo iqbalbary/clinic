@@ -34,20 +34,19 @@ if($_POST  && isset($_POST["New_Password"])){
     }
 }
 
-//Dashboard
 
 ?>
 
 
 <div class="container">
-	<form action="" method='post'>
+    <form action="" method='post'>
         <div class="form-group">
             <label for="Old_Password"> Old Password </label>
-            <input type="password" required="required" class="form-control" name="Old_Password"  placeholder="****">
+            <input type="password" required="required" class="form-control" name="Old_Password" placeholder="****">
         </div>
         <div class="form-group">
             <label for="New_Password"> New Password </label>
-            <input type="password" required="required" class="form-control" name="New_Password"  placeholder="****">
+            <input type="password" required="required" class="form-control" name="New_Password" placeholder="****">
         </div>
         <button type="submit" class="btn btn-primary" name='submit'>Submit</button>
     </form>

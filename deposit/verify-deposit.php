@@ -64,8 +64,8 @@ if(isset($_POST['Deposite_ID'])){
 }
 
 ?>
-<div  class="container">
-	<form action="" method='post'>
+<div class="container">
+    <form action="" method='post'>
         <div class="form-group">
             <label for="Profile ID">Profile ID</label>
             <div class="profile-data-container">
@@ -73,9 +73,10 @@ if(isset($_POST['Deposite_ID'])){
                     <?php 
                         foreach ($selectedUserIds as $selectedUserId) { ?>
                     <div class="input-item-block">
-                        <img src="<?php echo $base_url .'uploads/User/Image/' . trim($userListArr[$selectedUserId]['Image'] ? $userListArr[$selectedUserId]['Image'] :  'avater.jpg')  ?>">
-                        <span> <?php echo $userListArr[$selectedUserId]['Name']; ?>  </span>
-                        
+                        <img
+                            src="<?php echo $base_url .'uploads/User/Image/' . trim($userListArr[$selectedUserId]['Image'] ? $userListArr[$selectedUserId]['Image'] :  'avater.jpg')  ?>">
+                        <span> <?php echo $userListArr[$selectedUserId]['Name']; ?> </span>
+
                     </div>
                     <?php } ?>
                 </div>
@@ -94,24 +95,26 @@ if(isset($_POST['Deposite_ID'])){
             <div class="custom-input">
                 <?php 
                     foreach ($selectedMonths as $selectedMonth) { ?>
-                		<div class="input-item-block"> <?php echo $monthArray[$selectedMonth]; ?> </div>
-            	<?php } ?>
+                <div class="input-item-block"> <?php echo $monthArray[$selectedMonth]; ?> </div>
+                <?php } ?>
             </div>
         </div>
         <div class="form-group">
-        	<div class="image-label-block">
-        		<label for="Deposite_Slip"> Deposite Slip </label>
-            	<img src="<?php echo $base_url .'uploads/Deposite/Deposite_Slip/' . trim($depositDetailsData['Deposite_Slip'] ? $depositDetailsData['Deposite_Slip'] :  'avater.jpg')  ?>">
-        	</div>
-            
+            <div class="image-label-block">
+                <label for="Deposite_Slip"> Deposite Slip </label>
+                <img
+                    src="<?php echo $base_url .'uploads/Deposite/Deposite_Slip/' . trim($depositDetailsData['Deposite_Slip'] ? $depositDetailsData['Deposite_Slip'] :  'avater.jpg')  ?>">
+            </div>
+
         </div>
         <div class="form-group">
             <label for="Short_Description">Short Description</label>
             <p> <?php echo $depositDetailsData['Short_Description']; ?> </p>
         </div>
         <?php if($depositDetailsData['Verification'] == 0){ ?>
-        <button type="submit" class="btn btn-primary" value="<?php echo $depositDetailsData['Deposite_ID'];  ?>" name='Deposite_ID'>Verify</button>
-    <?php } ?>
+        <button type="submit" class="btn btn-primary" value="<?php echo $depositDetailsData['Deposite_ID'];  ?>"
+            name='Deposite_ID'>Verify</button>
+        <?php } ?>
     </form>
 </div>
 

@@ -1,7 +1,7 @@
 <?php 
 
 
-  $db = mysqli_connect("localhost","root","12345678","clinic");
+  $db = mysqli_connect("localhost","root","","clinic");
 
  if (mysqli_connect_errno()) 
  {

@@ -6,6 +6,4 @@ if(!$isSession){
     header("Location: ".$base_url."index.php");
 }
 
-
-
 require_once('../footer.php');

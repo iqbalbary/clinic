@@ -45,8 +45,8 @@ if(isset($_POST['Amount'])){
 }
 
 ?>
-<div  class="container">
-	<form action="" method='post' enctype="multipart/form-data">
+<div class="container">
+    <form action="" method='post' enctype="multipart/form-data">
         <div class="form-group">
             <label for="Profile ID">Profile ID</label>
             <input type="text" class="Profile_ID" id="Profile_ID" required="true" name="Profile_ID">
@@ -57,9 +57,10 @@ if(isset($_POST['Amount'])){
                     <?php 
                         foreach ($userListArr as $row) { ?>
                     <div class="item p-list-item" data-id="<?php echo $row['USER_ID']; ?>">
-                        <img src="<?php echo $base_url ."uploads/User/Image/".trim($row["Image"] ? $row["Image"] :  'avater.jpg')  ?>">
-                        <span> <?php echo $row['Name']; ?>  </span>
-                        
+                        <img
+                            src="<?php echo $base_url ."uploads/User/Image/".trim($row["Image"] ? $row["Image"] :  'avater.jpg')  ?>">
+                        <span> <?php echo $row['Name']; ?> </span>
+
                     </div>
                     <?php } ?>
                 </div>
@@ -67,18 +68,20 @@ if(isset($_POST['Amount'])){
         </div>
         <div class="form-group">
             <label for="Amount">Amount</label>
-            <input type="Number" required="required" class="form-control" required="true" name="Amount"  placeholder="5000">
+            <input type="Number" required="required" class="form-control" required="true" name="Amount"
+                placeholder="5000">
         </div>
         <div class="form-group">
             <label for="late_fine">Late Fine</label>
-            <input type="Number" required="required" class="form-control" required="true" name="late_fine"  placeholder="500">
+            <input type="Number" required="required" class="form-control" required="true" name="late_fine"
+                placeholder="500">
         </div>
         <div class="form-group">
             <label for="Month">Month</label>
             <select class="js-Month-multiple" name="Month[]" multiple="multiple">
-            <?php foreach( $monthArray as $key => $monthName){ ?>
+                <?php foreach( $monthArray as $key => $monthName){ ?>
                 <option value="<?php  echo $key ; ?>"> <?php echo $monthName; ?> </option>
-            <?php } ?>
+                <?php } ?>
             </select>
         </div>
         <div class="form-group">
@@ -87,7 +90,8 @@ if(isset($_POST['Amount'])){
         </div>
         <div class="form-group">
             <label for="Short_Description">Short Description</label>
-            <textarea  type="textarea"  v  class="md-textarea form-control"  required="true"  name="Short_Description" placeholder="Short Description" rows="10"> </textarea>
+            <textarea type="textarea" v class="md-textarea form-control" required="true" name="Short_Description"
+                placeholder="Short Description" rows="10"> </textarea>
         </div>
         <button type="submit" class="btn btn-primary" name='submit'>Submit</button>
     </form>
