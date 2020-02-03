@@ -88,6 +88,11 @@ img.profile_img{
     align-items: center;
     margin-right: 10px;
 }
+
+.input-item-block:last-child {
+    margin-right: 0px;
+}
+
 .input-item-block img{
 	display: block;
 	height: 37px;

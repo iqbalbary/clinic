@@ -1,46 +1,40 @@
 <?php
 // Add Deposit Form
-require_once('../header.php');
-if(!$isSession ){
-    header("Location: ".$base_url."index.php");
-}
-require_once('../fileUpload.php');
-$userListQuery = fetchAllDataById("User", array('USER_ID', "Image", "Name"));
-$userListObj = $db->query($userListQuery);
+require_once '../header.php';
 
-$userListArr = array();
-
-if($userListObj->num_rows >0){
-    while ($row = $userListObj->fetch_assoc()) {
-        $userListArr[] = $row;
-    }
+if (!$isSession) {
+    header("Location: " . $base_url . "index.php");
 }
+
+require_once '../fileUpload.php';
+require_once '../helper.php';
+$userListArr = dataFetchUsingTable("User", array('USER_ID', "Image", "Name"));
 
 $userListStr = json_encode($userListArr);
 
-if(isset($_POST['Amount'])){
+if (isset($_POST['Amount'])) {
     $insertArr = array(
-        "Verification_ID" => @$_SESSION["USER_ID"],
+        "submission_id" => @$_SESSION["USER_ID"],
         "Profile_ID" => $_POST['Profile_ID'],
         "Amount" => $_POST['Amount'],
         "late_fine" => @$_POST["late_fine"],
         "Date" => time(),
         "Month" => implode(",", $_POST['Month']),
-        "Verification" => 0
+        "Verification" => 0,
     );
 
-    if(isset($_FILES["Deposite_Slip"])){
+    if (isset($_FILES["Deposite_Slip"])) {
         $target_dir = "../uploads/Deposite/Deposite_Slip";
-        $imgUploadStatus =  fileUpload( $target_dir, "Deposite_Slip");
-        if($imgUploadStatus['status']){
+        $imgUploadStatus = fileUpload($target_dir, "Deposite_Slip");
+        if ($imgUploadStatus['status']) {
             $insertArr['Deposite_Slip'] = $imgUploadStatus['fileName'];
         }
     }
 
-    $insertFlag=  insetrtDataFunc("deposite", $insertArr);
+    $insertFlag = insetrtDataFunc("deposite", $insertArr);
 
-    if($insertFlag){
-        
+    if ($insertFlag) {
+
     }
 }
 
@@ -54,15 +48,15 @@ if(isset($_POST['Amount'])){
                 <div class="custom-input"></div>
                 <div class="custom-selected-block"></div>
                 <div class="list-item-container" data-user-list='<?php echo $userListStr; ?>'>
-                    <?php 
-                        foreach ($userListArr as $row) { ?>
+                    <?php
+foreach ($userListArr as $row) {?>
                     <div class="item p-list-item" data-id="<?php echo $row['USER_ID']; ?>">
                         <img
-                            src="<?php echo $base_url ."uploads/User/Image/".trim($row["Image"] ? $row["Image"] :  'avater.jpg')  ?>">
+                            src="<?php echo $base_url . "uploads/User/Image/" . trim($row["Image"] ? $row["Image"] : 'avater.jpg') ?>">
                         <span> <?php echo $row['Name']; ?> </span>
 
                     </div>
-                    <?php } ?>
+                    <?php }?>
                 </div>
             </div>
         </div>
@@ -79,9 +73,9 @@ if(isset($_POST['Amount'])){
         <div class="form-group">
             <label for="Month">Month</label>
             <select class="js-Month-multiple" name="Month[]" multiple="multiple">
-                <?php foreach( $monthArray as $key => $monthName){ ?>
-                <option value="<?php  echo $key ; ?>"> <?php echo $monthName; ?> </option>
-                <?php } ?>
+                <?php foreach ($monthArray as $key => $monthName) {?>
+                <option value="<?php echo $key; ?>"> <?php echo $monthName; ?> </option>
+                <?php }?>
             </select>
         </div>
         <div class="form-group">
@@ -98,5 +92,5 @@ if(isset($_POST['Amount'])){
 </div>
 
 <?php
-require_once('../footer.php'); 
+require_once '../footer.php';
 ?>

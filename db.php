@@ -8,8 +8,8 @@
  	echo "failed to connect to MySQL:".mysqli_connect_error();
  }
  $monthArray = array(
-     1 => 'January.',
-     2 => 'February.',
+     1 => 'January',
+     2 => 'February',
      3 => 'March',
      4 => 'April',
      5 => 'May',
