@@ -6,6 +6,9 @@ require_once '../helper.php';
 if (!$isSession) {
     header("Location: " . $base_url . "index.php");
 }
+$MonthYearListArr = dataFetchUsingTable("month_year", array('id', "month_name", "year"));
+$MonthYearListMap = dataMapByUniqeField("id", $MonthYearListArr);
+
 $userListData = dataFetchUsingTable("User", array('USER_ID', "Image", "Name"));
 $userListArr = dataMapByUniqeField("USER_ID", $userListData);
 $depositId = "";
@@ -56,7 +59,6 @@ if (isset($_POST['Deposite_ID'])) {
         $depositDetailsData["Verification_ID"] = $_SESSION["USER_ID"];
         $depositDetailsData["Verification"] = 1;
     }
-
 }
 
 ?>
@@ -67,14 +69,13 @@ if (isset($_POST['Deposite_ID'])) {
             <div class="profile-data-container">
                 <div class="custom-input">
                     <?php
-foreach ($selectedUserIds as $selectedUserId) {?>
-                    <div class="input-item-block">
-                        <img
-                            src="<?php echo $base_url . 'uploads/User/Image/' . trim($userListArr[$selectedUserId]['Image'] ? $userListArr[$selectedUserId]['Image'] : 'avater.jpg') ?>">
-                        <span> <?php echo $userListArr[$selectedUserId]['Name']; ?> </span>
+                    foreach ($selectedUserIds as $selectedUserId) { ?>
+                        <div class="input-item-block">
+                            <img src="<?php echo $base_url . 'uploads/User/Image/' . trim($userListArr[$selectedUserId]['Image'] ? $userListArr[$selectedUserId]['Image'] : 'avater.jpg') ?>">
+                            <span> <?php echo $userListArr[$selectedUserId]['Name']; ?> </span>
 
-                    </div>
-                    <?php }?>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -90,16 +91,15 @@ foreach ($selectedUserIds as $selectedUserId) {?>
             <label for="Month">Month</label>
             <div class="custom-input">
                 <?php
-foreach ($selectedMonths as $selectedMonth) {?>
-                <div class="input-item-block"> <?php echo $monthArray[$selectedMonth]; ?> </div>
-                <?php }?>
+                foreach ($selectedMonths as $selectedMonth) { ?>
+                    <div class="input-item-block"> <?php echo $MonthYearListMap[$selectedMonth]['month_name'] . " " . $MonthYearListMap[$selectedMonth]['year']; ?> </div>
+                <?php } ?>
             </div>
         </div>
         <div class="form-group">
             <div class="image-label-block">
                 <label for="Deposite_Slip"> Deposite Slip </label>
-                <img
-                    src="<?php echo $base_url . 'uploads/Deposite/Deposite_Slip/' . trim($depositDetailsData['Deposite_Slip'] ? $depositDetailsData['Deposite_Slip'] : 'avater.jpg') ?>">
+                <img src="<?php echo $base_url . 'uploads/Deposite/Deposite_Slip/' . trim($depositDetailsData['Deposite_Slip'] ? $depositDetailsData['Deposite_Slip'] : 'avater.jpg') ?>">
             </div>
 
         </div>
@@ -108,31 +108,28 @@ foreach ($selectedMonths as $selectedMonth) {?>
             <p> <?php echo $depositDetailsData['Short_Description']; ?> </p>
         </div>
         <?php
-if ($depositDetailsData['Verification'] == 0) {
-    foreach ($selectedUserIds as $selectedUserId) {
-        foreach ($selectedMonths as $selectedMonth) {
-            ?>
-        <div class="user-month-name-image-container">
-            <img src="<?=$base_url?>uploads/User/Image/<?=$userListArr[$selectedUserId]['Image'] ? trim($userListArr[$selectedUserId]['Image']) : 'avater.jpg';?>"
-                alt="image">
-            <div class="user-name"><?=$userListArr[$selectedUserId]['Name']?></div>
-            <div class="monthName"><?=$monthArray[$selectedMonth]?></div>
-        </div>
-        <div class="form-group">
-            <label for="user-amount ">Amount </label>
-            <input type="Number" required="required" class="form-control" required="true" value="5000"
-                name="user-<?=$selectedUserId?>-month-<?=$selectedMonth?>-amount" placeholder="5000">
-        </div>
-        <div class="form-group">
-            <label for="late fine ">Late fine </label>
-            <input type="Number" required="required" class="form-control" required="true"
-                name="user-<?=$selectedUserId?>-month-<?=$selectedMonth?>-late-fine" placeholder="500">
-        </div>
-        <?php }}?>
-        <button type="submit" class="btn btn-primary" value="<?php echo $depositDetailsData['Deposite_ID']; ?>"
-            name='Deposite_ID'>Verify</button>
+        if ($depositDetailsData['Verification'] == 0) {
+            foreach ($selectedUserIds as $selectedUserId) {
+                foreach ($selectedMonths as $selectedMonth) {
+        ?>
+                    <div class="user-month-name-image-container">
+                        <img src="<?= $base_url ?>uploads/User/Image/<?= $userListArr[$selectedUserId]['Image'] ? trim($userListArr[$selectedUserId]['Image']) : 'avater.jpg'; ?>" alt="image">
+                        <div class="user-name"><?= $userListArr[$selectedUserId]['Name'] ?></div>
+                        <div class="monthName"><?= $MonthYearListMap[$selectedMonth]['month_name'] . " " . $MonthYearListMap[$selectedMonth]['year'] ?></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-amount ">Amount </label>
+                        <input type="Number" required="required" class="form-control" required="true" value="5000" name="user-<?= $selectedUserId ?>-month-<?= $selectedMonth ?>-amount" placeholder="5000">
+                    </div>
+                    <div class="form-group">
+                        <label for="late fine ">Late fine </label>
+                        <input type="Number" required="required" class="form-control" required="true" name="user-<?= $selectedUserId ?>-month-<?= $selectedMonth ?>-late-fine" placeholder="500">
+                    </div>
+            <?php }
+            } ?>
+            <button type="submit" class="btn btn-primary" value="<?php echo $depositDetailsData['Deposite_ID']; ?>" name='Deposite_ID'>Verify</button>
         <?php
-}?>
+        } ?>
     </form>
 </div>
 

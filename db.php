@@ -32,6 +32,59 @@
     return $GLOBALS['db']->query($sql);
  }
 
+ function getUserDepositTableOverview(){
+     $sql = "select month, count(user_id) as number_of_user , sum(amount) as monthly_amount  from  user_deposite group by month order by month;";
+     $dataObj = $GLOBALS['db']->query($sql);
+     $dataArr = array();
+ 
+     if($dataObj->num_rows >0){
+         while ($row = $dataObj->fetch_assoc()) {
+             $dataArr[] = $row;
+         }
+     }
+     return $dataArr;
+} 
+
+function getTotalOverVewPerMoth( $monthYearid){
+    $sql = "select month, amount, user_id, late_fine, deposit_id  from  user_deposite  where  month=". $monthYearid . ";";
+     $dataObj = $GLOBALS['db']->query($sql);
+     $dataArr = array();
+     if($dataObj->num_rows >0){
+         while ($row = $dataObj->fetch_assoc()) {
+             $dataArr[] = $row;
+         }
+     }
+     return $dataArr;
+}
+
+
+function getTotalAmountPerMoth( $monthYearid){
+    $sql = "select  sum(amount) as total from  user_deposite where  month=". $monthYearid . ";";
+    $dataObj = $GLOBALS['db']->query($sql);
+    if($dataObj->num_rows >0){
+        return  $dataObj->fetch_assoc();
+    }
+    return 0;
+}
+
+function getTotalAmount(){
+    $sql = "select  sum(amount) as total from  user_deposite ;";
+    $dataObj = $GLOBALS['db']->query($sql);
+    if($dataObj->num_rows >0){
+        return  $dataObj->fetch_assoc();
+    }
+    return 0;
+}
+
+function getTotalActiveUser( ){
+    $sql = "select  count( USER_ID ) as totalUser from  user where Status=1 ;";
+    $dataObj = $GLOBALS['db']->query($sql);
+    if($dataObj->num_rows >0){
+        return  $dataObj->fetch_assoc();
+    }
+    return 0;
+}
+
  function dataFetchUsingTable($tableName="", $selectedFieldList=array(),  $conditionFielArr=array()){
     $sql = fetchAllDataById($tableName, $selectedFieldList, $conditionFielArr);
     $dataObj = $GLOBALS['db']->query($sql);
@@ -141,4 +194,3 @@ if(sizeof($conditionFielArr)){
         return false;
     }
  }
-?>

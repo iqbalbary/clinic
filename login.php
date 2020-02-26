@@ -1,25 +1,25 @@
 <?php
 include('header.php');
-if($isSession){
-	header("Location: ".$base_url."index.php");
+if ($isSession) {
+    header("Location: " . $base_url . "index.php");
 }
 
-if($_POST  && isset($_POST["USER_ID"])){
-	$condintion = array();
+if ($_POST  && isset($_POST["USER_ID"])) {
+    $condintion = array();
     $condintion[] = array(
-        'fieldName'=> 'USER_ID',
+        'fieldName' => 'USER_ID',
         'symbol' => " = ",
         'value' => $_POST["USER_ID"]
     );
-    
+
     $loginUserDataArr =  dataFetchUsingTable("User", array('*'),  $condintion);
 
-    if( sizeof($loginUserDataArr)>0){
+    if (sizeof($loginUserDataArr) > 0) {
         $loginUserData = $loginUserDataArr[0];
-        if($loginUserData['Password'] == sha1( $_POST["Password"] )){
-        	$_SESSION["USER_ID"] = $loginUserData['USER_ID'];
-        	$_SESSION["User_Role"] = $loginUserData['User_Role'];
-        	header("Location: ".$base_url."index.php");
+        if ($loginUserData['Password'] == sha1($_POST["Password"])) {
+            $_SESSION["USER_ID"] = $loginUserData['USER_ID'];
+            $_SESSION["User_Role"] = $loginUserData['User_Role'];
+            header("Location: " . $base_url . "index.php");
         }
     }
 }

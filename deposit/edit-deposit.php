@@ -1,8 +1,8 @@
 <?php
 // Add Deposit Form
 require_once('../header.php');
-if(!$isSession ){
-    header("Location: ".$base_url."index.php");
+if (!$isSession) {
+    header("Location: " . $base_url . "index.php");
 }
 require_once('../fileUpload.php');
 $userListQuery = fetchAllDataById("User", array('USER_ID', "Image", "Name"));
@@ -10,7 +10,7 @@ $userListObj = $db->query($userListQuery);
 
 $userListArr = array();
 
-if($userListObj->num_rows >0){
+if ($userListObj->num_rows > 0) {
     while ($row = $userListObj->fetch_assoc()) {
         $userListArr[] = $row;
     }
@@ -18,7 +18,7 @@ if($userListObj->num_rows >0){
 
 $userListStr = json_encode($userListArr);
 
-if(isset($_POST['Amount'])){
+if (isset($_POST['Amount'])) {
     $insertArr = array(
         "Verification_ID" => @$_SESSION["USER_ID"],
         "Profile_ID" => $_POST['Profile_ID'],
@@ -29,19 +29,18 @@ if(isset($_POST['Amount'])){
         "Verification" => 0
     );
 
-    if(isset($_FILES["Deposite_Slip"])){
+    if (isset($_FILES["Deposite_Slip"])) {
         $target_dir = "../uploads/Deposite/Deposite_Slip";
-        $imgUploadStatus =  fileUpload( $target_dir, "Deposite_Slip");
-        if($imgUploadStatus['status']){
+        $imgUploadStatus =  fileUpload($target_dir, "Deposite_Slip");
+        if ($imgUploadStatus['status']) {
             $insertArr['Deposite_Slip'] = $imgUploadStatus['fileName'];
         }
     }
 
-    $sql=  insetrtData("deposite", $insertArr);
+    $sql =  insetrtData("deposite", $insertArr);
     $insertFlag = $db->query($sql);
 
-    if($insertFlag){
-        
+    if ($insertFlag) {
     }
 }
 
@@ -55,33 +54,30 @@ if(isset($_POST['Amount'])){
                 <div class="custom-input"></div>
                 <div class="custom-selected-block"></div>
                 <div class="list-item-container" data-user-list='<?php echo $userListStr; ?>'>
-                    <?php 
-                        foreach ($userListArr as $row) { ?>
-                    <div class="item p-list-item" data-id="<?php echo $row['USER_ID']; ?>">
-                        <img
-                            src="<?php echo $base_url ."uploads/User/Image/".trim($row["Image"] ? $row["Image"] :  'avater.jpg')  ?>">
-                        <span> <?php echo $row['Name']; ?> </span>
+                    <?php
+                    foreach ($userListArr as $row) { ?>
+                        <div class="item p-list-item" data-id="<?php echo $row['USER_ID']; ?>">
+                            <img src="<?php echo $base_url . "uploads/User/Image/" . trim($row["Image"] ? $row["Image"] :  'avater.jpg')  ?>">
+                            <span> <?php echo $row['Name']; ?> </span>
 
-                    </div>
+                        </div>
                     <?php } ?>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label for="Amount">Amount</label>
-            <input type="Number" required="required" class="form-control" required="true" name="Amount"
-                placeholder="5000">
+            <input type="Number" required="required" class="form-control" required="true" name="Amount" placeholder="5000">
         </div>
         <div class="form-group">
             <label for="late_fine">Late Fine</label>
-            <input type="Number" required="required" class="form-control" required="true" name="late_fine"
-                placeholder="500">
+            <input type="Number" required="required" class="form-control" required="true" name="late_fine" placeholder="500">
         </div>
         <div class="form-group">
             <label for="Month">Month</label>
             <select class="js-Month-multiple" name="Month[]" multiple="multiple">
-                <?php foreach( $monthArray as $key => $monthName){ ?>
-                <option value="<?php  echo $key ; ?>"> <?php echo $monthName; ?> </option>
+                <?php foreach ($monthArray as $key => $monthName) { ?>
+                    <option value="<?php echo $key; ?>"> <?php echo $monthName; ?> </option>
                 <?php } ?>
             </select>
         </div>
@@ -91,13 +87,12 @@ if(isset($_POST['Amount'])){
         </div>
         <div class="form-group">
             <label for="Short_Description">Short Description</label>
-            <textarea type="textarea" v class="md-textarea form-control" required="true" name="Short_Description"
-                placeholder="Short Description" rows="10"> </textarea>
+            <textarea type="textarea" v class="md-textarea form-control" required="true" name="Short_Description" placeholder="Short Description" rows="10"> </textarea>
         </div>
         <button type="submit" class="btn btn-primary" name='submit'>Submit</button>
     </form>
 </div>
 
 <?php
-require_once('../footer.php'); 
+require_once('../footer.php');
 ?>

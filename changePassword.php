@@ -1,34 +1,33 @@
 <?php
 require_once('header.php');
-if(!$isSession){
-	header("Location: ".$base_url."index.php");
+if (!$isSession) {
+    header("Location: " . $base_url . "index.php");
 }
 
-if($_POST  && isset($_POST["New_Password"])){
-	$condintion = array();
+if ($_POST  && isset($_POST["New_Password"])) {
+    $condintion = array();
     $condintion[] = array(
-        'fieldName'=> 'USER_ID',
+        'fieldName' => 'USER_ID',
         'symbol' => " = ",
         'value' => $_SESSION["USER_ID"]
     );
-    
+
     $getNewUserDataSql =  fetchAllDataById("User", array('*'),  $condintion);
     $loginUserDataObj = $db->query($getNewUserDataSql);
 
-    if($loginUserDataObj->num_rows >0){
+    if ($loginUserDataObj->num_rows > 0) {
         $loginUserData = $loginUserDataObj->fetch_assoc();
         $loginUserData['USER_ID'];
-        if($loginUserData['Password'] == sha1( $_POST["Old_Password"] )){
-        	$updateDataArray = array(
+        if ($loginUserData['Password'] == sha1($_POST["Old_Password"])) {
+            $updateDataArray = array(
                 "Password" => sha1($_POST["New_Password"])
             );
 
-            $updateSqlStr = updateSql("User", $updateDataArray, $condintion );
+            $updateSqlStr = updateSql("User", $updateDataArray, $condintion);
             $updateFlag = $db->query($updateSqlStr);
 
-            if($updateFlag){
-                header("Location: ".$base_url."login.php");
-
+            if ($updateFlag) {
+                header("Location: " . $base_url . "login.php");
             }
         }
     }
