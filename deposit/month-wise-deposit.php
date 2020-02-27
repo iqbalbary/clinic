@@ -59,7 +59,7 @@ require_once('../header.php');
                             <td><?= @$datasMap[$userData['USER_ID']]['late_fine']  ?></td>
                             <td>
                                 <?php if (isset($datasMap[$userData['USER_ID']])) { ?>
-                                    <a href="<?= $base_url; ?>deposit/verify-deposit.php?deposit-id=<?= @$datasMap[$userData['USER_ID']]['deposit_id'] ?>">
+                                    <a href="<?= $base_url; ?>deposit/view-deposit.php?deposit-id=<?= @$datasMap[$userData['USER_ID']]['deposit_id'] ?>">
                                         Deposit Link <?= @$datasMap[$userData['USER_ID']]['deposit_id'] ?>
                                     </a>
                                 <?php } else { ?>
@@ -73,4 +73,5 @@ require_once('../header.php');
         </div>
     </div>
 </div>
+<?php
 require_once('../footer.php');

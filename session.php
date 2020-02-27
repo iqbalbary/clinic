@@ -20,7 +20,7 @@ function isAuthorize(){
 }
 
 function isAdminUser(){
-    if ($GLOBALS["isSession"] && $GLOBALS['userRole'] === 2) {
+    if ($GLOBALS["isSession"] && $GLOBALS['userRole'] == 2) {
         // do nothing 
     }else{
         header("Location: " . $GLOBALS["base_url"] . "index.php");

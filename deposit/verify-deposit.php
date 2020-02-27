@@ -2,7 +2,6 @@
 // Add verify  Deposit
 require_once('../session.php');
 isAdminUser();
-
 require_once '../helper.php';
 $MonthYearListArr = dataFetchUsingTable("month_year", array('id', "month_name", "year"));
 $MonthYearListMap = dataMapByUniqeField("id", $MonthYearListArr);
@@ -26,8 +25,8 @@ $userDepositCondintion[] = array(
 $depositDetailsDataArr = dataFetchUsingTable("deposite", array(), $userDepositCondintion);
 $depositDetailsData = $depositDetailsDataArr[0];
 
-if(!$depositDetailsData['Verification']){
-    header("Location: " . $base_url . "deposit/verify-deposit.php?deposit-id=".$depositDetailsData["Deposite_ID"]);
+if($depositDetailsData['Verification']){
+    header("Location: " . $base_url . "deposit/view-deposit.php?deposit-id=".$depositDetailsData["Deposite_ID"]);
     exit;
 }
 
