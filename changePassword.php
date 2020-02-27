@@ -1,9 +1,6 @@
 <?php
-require_once('header.php');
-if (!$isSession) {
-    header("Location: " . $base_url . "index.php");
-}
-
+require_once('session.php');
+isAuthorize();
 if ($_POST  && isset($_POST["New_Password"])) {
     $condintion = array();
     $condintion[] = array(
@@ -28,11 +25,12 @@ if ($_POST  && isset($_POST["New_Password"])) {
 
             if ($updateFlag) {
                 header("Location: " . $base_url . "login.php");
+                exit;
             }
         }
     }
 }
-
+require_once('header.php');
 
 ?>
 

@@ -1,17 +1,11 @@
 <?php
 // Add Deposit Form
-require_once '../header.php';
-
-if (!$isSession) {
-    header("Location: " . $base_url . "index.php");
-}
-
+require_once('../session.php');
+isAuthorize();
 require_once '../fileUpload.php';
 require_once '../helper.php';
 $userListArr = dataFetchUsingTable("User", array('USER_ID', "Image", "Name"));
-
 $userListStr = json_encode($userListArr);
-
 $MonthYearListArr = dataFetchUsingTable("month_year", array('id', "month_name", "year"));
 $MonthYearListMap = dataMapByUniqeField("id", $MonthYearListArr);
 
@@ -40,6 +34,7 @@ if (isset($_POST['Amount'])) {
     }
 }
 
+require_once '../header.php';
 ?>
 <div class="container">
     <form action="" method='post' enctype="multipart/form-data">

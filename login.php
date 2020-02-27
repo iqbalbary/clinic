@@ -1,7 +1,8 @@
 <?php
-include('header.php');
+require_once('session.php');
 if ($isSession) {
     header("Location: " . $base_url . "index.php");
+    exit;
 }
 
 if ($_POST  && isset($_POST["USER_ID"])) {
@@ -20,10 +21,11 @@ if ($_POST  && isset($_POST["USER_ID"])) {
             $_SESSION["USER_ID"] = $loginUserData['USER_ID'];
             $_SESSION["User_Role"] = $loginUserData['User_Role'];
             header("Location: " . $base_url . "index.php");
+            exit;
         }
     }
 }
-
+include('header.php');
 ?>
 <div class="container">
     <form action="" method='post'>

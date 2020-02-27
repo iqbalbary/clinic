@@ -1,9 +1,9 @@
 <?php
 //All User List
+require_once('../session.php');
+isAuthorize();
 require_once('../header.php');
-if (!$isSession) {
-    header("Location: " . $base_url . "index.php");
-}
+
 $userListArr = dataFetchUsingTable("User", array('*'));
 ?>
 <div class="container">

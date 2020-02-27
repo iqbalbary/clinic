@@ -1,8 +1,7 @@
 <?php
 // Add verify  Deposit
 require_once('../session.php');
-isAdminUser();
-
+isAuthorize();
 require_once '../helper.php';
 $MonthYearListArr = dataFetchUsingTable("month_year", array('id', "month_name", "year"));
 $MonthYearListMap = dataMapByUniqeField("id", $MonthYearListArr);
@@ -25,46 +24,10 @@ $userDepositCondintion[] = array(
 
 $depositDetailsDataArr = dataFetchUsingTable("deposite", array(), $userDepositCondintion);
 $depositDetailsData = $depositDetailsDataArr[0];
-
-if(!$depositDetailsData['Verification']){
-    header("Location: " . $base_url . "deposit/verify-deposit.php?deposit-id=".$depositDetailsData["Deposite_ID"]);
-    exit;
-}
-
 $selectedUserIds = explode(",", $depositDetailsData["Profile_ID"]);
 $selectedMonths = explode(",", $depositDetailsData["Month"]);
 
-if (isset($_POST['Deposite_ID'])) {
-    $userDepositArr = array(
-        "user_id" => "",
-        "month" => "",
-        "deposit_id" => $depositId,
-        "amount" => 0,
-        "late_fine" => 0,
-    );
-
-    foreach ($selectedUserIds as $selectedUserId) {
-        $userDepositArr['user_id'] = $selectedUserId;
-        foreach ($selectedMonths as $selectedMonth) {
-            $userDepositArr['month'] = $selectedMonth;
-            $userDepositArr['amount'] = $_POST["user-" . $selectedUserId . "-month-" . $selectedMonth . "-amount"];
-            $userDepositArr['late_fine'] = $_POST["user-" . $selectedUserId . "-month-" . $selectedMonth . "-late-fine"];
-
-            if ($userDepositArr['amount'] || $userDepositArr['late_fine']) {
-                $insertFlag = insetrtDataFunc("user_deposite", $userDepositArr);
-            }
-        }
-    }
-    $UserDepositUpdateArray = array(
-        "Verification_ID" => $_SESSION["USER_ID"],
-        "Verification" => 1,
-    );
-    $updateFlag = updateData("deposite", $UserDepositUpdateArray, $userDepositCondintion);
-    if ($updateFlag) {
-        $depositDetailsData["Verification_ID"] = $_SESSION["USER_ID"];
-        $depositDetailsData["Verification"] = 1;
-    }
-}
+$userDepositInfo =  getDepositDetails($depositId);
 require '../header.php';
 
 ?>
@@ -113,29 +76,33 @@ require '../header.php';
             <label for="Short_Description">Short Description</label>
             <p> <?php echo $depositDetailsData['Short_Description']; ?> </p>
         </div>
-        <?php
-        if ($depositDetailsData['Verification'] == 0) {
-            foreach ($selectedUserIds as $selectedUserId) {
-                foreach ($selectedMonths as $selectedMonth) {
-        ?>
-                    <div class="user-month-name-image-container">
-                        <img src="<?= $base_url ?>uploads/User/Image/<?= $userListArr[$selectedUserId]['Image'] ? trim($userListArr[$selectedUserId]['Image']) : 'avater.jpg'; ?>" alt="image">
-                        <div class="user-name"><?= $userListArr[$selectedUserId]['Name'] ?></div>
-                        <div class="monthName"><?= $MonthYearListMap[$selectedMonth]['month_name'] . " " . $MonthYearListMap[$selectedMonth]['year'] ?></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="user-amount ">Amount </label>
-                        <input type="Number" required="required" class="form-control" required="true" value="5000" name="user-<?= $selectedUserId ?>-month-<?= $selectedMonth ?>-amount" placeholder="5000">
-                    </div>
-                    <div class="form-group">
-                        <label for="late fine ">Late fine </label>
-                        <input type="Number" required="required" class="form-control" required="true" name="user-<?= $selectedUserId ?>-month-<?= $selectedMonth ?>-late-fine" placeholder="500">
-                    </div>
-            <?php }
-            } ?>
-            <button type="submit" class="btn btn-primary" value="<?php echo $depositDetailsData['Deposite_ID']; ?>" name='Deposite_ID'>Verify</button>
-        <?php
-        } ?>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Deposit profile</th>
+                    <th>Month</th>
+                    <th>Amount</th>
+                    <th>Late fine</th>
+                    <th>Deposit image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($userDepositInfo as $info) : ?>
+                    <tr>
+                        <td> <?= $userListArr[$info['user_id']]['Name'] ?> </td>
+                        <td><?= $MonthYearListMap[$info["month"]]['month_name'] . " " . $MonthYearListMap[$info['month']]['year'] ?></td>
+                        <td><?= $info["amount"] ?></td>
+                        <td> <?= $info["late_fine"] ?> </td>
+                        <td> <img src="<?= $base_url ?>uploads/User/Image/<?= $userListArr[$info['user_id']]['Image'] ? trim($userListArr[$info['user_id']]['Image']) : 'avater.jpg'; ?>"> </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <div class="form-group">
+            <label for="Verification_ID">Verified BY </label>
+            <p> <?= $userListArr[$depositDetailsData['Verification_ID']]['Name']; ?>  on <?= date("Y-m-d", $depositDetailsData['Date']) ?>  </p>
+        </div>
     </form>
 </div>
 

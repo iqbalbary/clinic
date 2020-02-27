@@ -1,9 +1,8 @@
 <?php
 // Add Deposit Form
-require_once('../header.php');
-if (!$isSession) {
-    header("Location: " . $base_url . "index.php");
-}
+require_once('../session.php');
+isAuthorize();
+
 require_once('../fileUpload.php');
 $userListQuery = fetchAllDataById("User", array('USER_ID', "Image", "Name"));
 $userListObj = $db->query($userListQuery);
@@ -43,6 +42,7 @@ if (isset($_POST['Amount'])) {
     if ($insertFlag) {
     }
 }
+require_once('../header.php');
 
 ?>
 <div class="container">

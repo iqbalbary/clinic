@@ -1,10 +1,10 @@
 <?php
 //Dashboard
+require_once('session.php');
 require_once('header.php');
 require_once 'helper.php';
 if ($isSession) {
     $datas  = getUserDepositTableOverview();
-
     $MonthYearListArr = dataFetchUsingTable("month_year", array('id', "month_name", "year"));
     $MonthYearListMap = dataMapByUniqeField("id", $MonthYearListArr);
     $total = getTotalAmount();
@@ -51,8 +51,6 @@ if ($isSession) {
             </div>
         </div>
     </div>
-
-
 <?php
 
 } else {

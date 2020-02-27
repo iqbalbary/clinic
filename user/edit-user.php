@@ -1,12 +1,9 @@
 <?php
 //Edit user
 //Normal User can edit select field, admin can edit all
-require_once('../header.php');
+require_once('../session.php');
+isAuthorize();
 require_once('../fileUpload.php');
-
-if (!$isSession) {
-    header("Location: " . $base_url . "index.php");
-}
 $condintion = array();
 $id = $_SESSION["USER_ID"];
 
@@ -58,8 +55,10 @@ if (isset($_POST) && sizeof($_POST)) {
     $updateFlag = updateData("User", $updateDataArray, $condintion);
     if ($updateFlag) {
         header("Location: " . $base_url . "user/edit-user.php");
+        exit;
     }
 }
+require_once('../header.php');
 ?>
 <div class="container">
     <form action="" method='post' enctype="multipart/form-data">

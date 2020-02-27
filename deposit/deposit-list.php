@@ -1,16 +1,14 @@
 <?php
 //Deposit Lists
-
-require_once '../header.php';
+require_once('../session.php');
+isAuthorize();
 require_once '../helper.php';
-if (!$isSession) {
-    header("Location: " . $base_url . "index.php");
-}
 $userListArr = dataFetchUsingTable("User", array('USER_ID', "Image", "Name"));
 $userDataMap = dataMapByUniqeField("USER_ID", $userListArr);
 
 $depositList = dataFetchUsingTable("deposite", array("*"));
 
+require_once '../header.php';
 ?>
 <div class="container">
     <div class="row">

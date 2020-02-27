@@ -67,6 +67,20 @@ function getTotalAmountPerMoth( $monthYearid){
     return 0;
 }
 
+
+function getDepositDetails($depositId){
+    $sql = "select month, amount, user_id, late_fine, deposit_id  from  user_deposite  where  deposit_id=". $depositId . ";";
+    $dataObj = $GLOBALS['db']->query($sql);
+    $dataArr = array();
+    if($dataObj->num_rows >0){
+        while ($row = $dataObj->fetch_assoc()) {
+            $dataArr[] = $row;
+        }
+    }
+    return $dataArr;
+
+}
+
 function getTotalAmount(){
     $sql = "select  sum(amount) as total from  user_deposite ;";
     $dataObj = $GLOBALS['db']->query($sql);

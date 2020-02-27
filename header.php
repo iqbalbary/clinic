@@ -1,18 +1,3 @@
-<?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-session_start();
-$base_url = "http://localhost/clinic/";
-$isSession = false;
-$userRole = 1;
-if (isset($_SESSION["USER_ID"])) {
-    $isSession = true;
-    $userRole = $_SESSION["User_Role"];
-}
-require_once 'db.php';
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 

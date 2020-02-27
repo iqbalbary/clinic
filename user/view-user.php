@@ -1,11 +1,8 @@
 <?php
 //Edit user
 //Normal User can edit select field, admin can edit all
-require_once('../header.php');
-
-if (!$isSession) {
-    header("Location: " . $base_url . "index.php");
-}
+require_once('../session.php');
+isAuthorize();
 $condintion = array();
 $id = $_SESSION["USER_ID"];
 
@@ -24,6 +21,7 @@ $getNewUserDataArr =  dataFetchUsingTable("User", array('*'),  $condintion);
 if (sizeof($getNewUserDataArr) > 0) {
     $newUserData = $getNewUserDataArr[0];
 }
+require_once('../header.php');
 
 ?>
 <div class="container">

@@ -1,11 +1,9 @@
 <?php
 //Add new user - Form
 //Only for Admin
+require_once('../session.php');
+isAdminUser();
 require_once('../header.php');
-if (!$isSession) {
-    header("Location: " . $base_url . "index.php");
-}
-
 ?>
 <div class="container">
     <?php
