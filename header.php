@@ -46,11 +46,6 @@
                             <ul class="dropdown-menu">
                                 <li><a href="<?= $base_url; ?>deposit/deposits.php">All Deposits</a></li>
                                 <li><a href="<?= $base_url; ?>deposit/add-deposit.php">Add Deposit</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="<?= $base_url; ?>deposit/deposit-list.php">List Deposit
-                                        list</a>
-                                </li>
-                                <li><a href="<?= $base_url; ?>deposit/edit-deposit.php">Edit Deposit</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -63,7 +58,7 @@
                                 <?php if ($userRole == 2) { ?>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="<?= $base_url; ?>user/add-user.php">Add User</a></li>
-                                    <li><a href="<?= $base_url; ?>/user/remove-user.php">Remove User</a></li>
+                                    <li><a href="<?= $base_url; ?>user/set-user-permission.php">Set User role & permission</a></li>
                                 <?php } ?>
                             </ul>
                         </li>

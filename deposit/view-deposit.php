@@ -35,7 +35,7 @@ require '../header.php';
     <form action="" method='post'>
         <div class="form-group">
             <label for="Profile ID">Profile ID</label>
-            <div class="profile-data-container">
+            <div class="profile-data-container" id="profileDataContainerId" multiSelectAtt="1">
                 <div class="custom-input">
                     <?php
                     foreach ($selectedUserIds as $selectedUserId) { ?>

@@ -39,9 +39,11 @@ $(document).ready(function() {
 		let parentdiv = clickPoint.closest("div.list-item-container");
 		let userListStr = parentdiv.attr("data-user-list");
 		let userListArr = JSON.parse(userListStr || "");
-
 		let previousSelectedUserIds = ($('input#Profile_ID').val()).trim();
-		let previousSelectedUserIdArr = previousSelectedUserIds && previousSelectedUserIds.split(",") || [];
+		let previousSelectedUserIdArr = []
+		if($("div#profileDataContainerId").attr('multiSelectAtt') == 1){
+			previousSelectedUserIdArr = previousSelectedUserIds && previousSelectedUserIds.split(",") || [];
+		}
 		if(!previousSelectedUserIdArr.includes(currentSelectedUserId)){
 			previousSelectedUserIdArr.push(currentSelectedUserId);
 		}

@@ -15,6 +15,7 @@ $userListArr = dataFetchUsingTable("User", array('*'));
                         <th>User ID</th>
                         <th>Name</th>
                         <th> Status </th>
+                        <th> Role </th>
                         <th> Verified </th>
                         <th> # </th>
                     </tr>
@@ -27,6 +28,7 @@ $userListArr = dataFetchUsingTable("User", array('*'));
                             <td> <?php echo $row["USER_ID"]; ?></td>
                             <td> <?php echo $row["Name"]; ?> </td>
                             <td> <?php echo $row["Status"] ? "Active" : "In Active" ?></td>
+                            <td> <?= $row["User_Role"] == 1 ? "Subscriber" : "Admin" ?></td>
                             <td> <?php echo $row["Verified"] ? "Verified" : "Pendidng" ?> </td>
                             <td> <a href="<?php echo $base_url . "user/view-user.php?id=" . $row["USER_ID"]; ?>">User detail</a>
                             </td>

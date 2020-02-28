@@ -7,6 +7,9 @@ $userListArr = dataFetchUsingTable("User", array('USER_ID', "Image", "Name"));
 $userDataMap = dataMapByUniqeField("USER_ID", $userListArr);
 $depositList = dataFetchUsingTable("deposite", array("*"));
 
+$MonthYearListArr = dataFetchUsingTable("month_year", array('id', "month_name", "year"));
+$MonthYearListMap = dataMapByUniqeField("id", $MonthYearListArr);
+
 require_once '../header.php';
 ?>
 <div class="container">
@@ -27,13 +30,13 @@ require_once '../header.php';
                 <tbody>
                     <?php foreach ($depositList as $data) : ?>
                         <tr>
-                            <td> <?= @$userDataMap[$data['submission_id']]['Name']; ?> </td>
+                            <td> <a href="<?= $base_url; ?>user/view-user.php?id=<?= $data['submission_id'] ?>"> <?= @$userDataMap[$data['submission_id']]['Name']; ?> <span> at <?= date("Y- m -d ", $data['Date']) ?></span> </a> </td>
                             <td>
                                 <?php
                                 $userProfileArr = explode(",", $data['Profile_ID']);
                                 $userNameArr = array();
                                 foreach ($userProfileArr as $item) {
-                                    $userNameArr[] = $userDataMap[$item]['Name'];
+                                    $userNameArr[] =  "<a href=" . $base_url . "user/view-user.php?id=" . $item . ">" . $userDataMap[$item]['Name'] . "</a>";
                                 }
                                 echo implode(", ", $userNameArr);
                                 ?>
@@ -43,15 +46,33 @@ require_once '../header.php';
                                 $selectetMonthArr = $data['Month'] ? explode(",", $data['Month']) : array();
                                 $monthArr = array();
                                 foreach ($selectetMonthArr as $item) {
-                                    $monthArr[] = $monthArray[$item];
+                                    $monthArr[] = $MonthYearListMap[$item]['month_name'] . " , " . $MonthYearListMap[$item]['year'];
                                 }
-                                echo implode(", ", $monthArr);
+                                echo implode("<br> ", $monthArr);
                                 ?>
                             </td>
                             <td> <?= $data['Amount']; ?> </td>
                             <td> <img src="<?= $base_url . "uploads/Deposite/Deposite_Slip/" . $data['Deposite_Slip']; ?>" alt="slipimage"> </td>
-                            <td> <a href="<?= $base_url ?>deposit/verify-deposit.php?deposit-id=<?= $data['Deposite_ID'] ?>">
-                                    <?= ($data['Verification']) ? " Verified <br> by <br> <span> " . $userDataMap[$data['Verification_ID']]['Name']  . "</span> " : "Not varified" ?> </a>
+                            <td>
+                                <?php if ($data['Verification']) { ?>
+                                    Verified <br> by <br> <span> <?= $userDataMap[$data['Verification_ID']]['Name'] ?> </span>
+                                    <?php } else {
+                                    if ($userRole == 2) {
+                                    ?>
+                                        <a href="<?= $base_url ?>deposit/verify-deposit.php?deposit-id=<?= $data['Deposite_ID'] ?>">
+                                            Not varified
+                                        </a>
+                                    <?php
+                                    } else {
+                                        echo "Not varified";
+                                    }
+                                    ?>
+                                    <?php if ($data['submission_id'] == $loginUserId) { ?>
+                                        <span> <a href="<?= $base_url ?>deposit/edit-deposit.php?deposit-id=<?= $data['Deposite_ID'] ?>">
+                                                Edit
+                                            </a> </span>
+                                <?php }
+                                } ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

@@ -5,11 +5,7 @@ require_once('../session.php');
 isAuthorize();
 require_once('../fileUpload.php');
 $condintion = array();
-$id = $_SESSION["USER_ID"];
-
-if (isset($_GET) && isset($_GET['id'])) {
-    $id = (int) $_GET['id'];
-}
+$id = $loginUserId;
 
 $condintion[] = array(
     'fieldName' => 'USER_ID',
@@ -72,17 +68,11 @@ require_once('../header.php');
         </div>
         <div class="form-group">
             <label for="User_Role">User Role</label>
-            <select class="form-control" name="User_Role">
-                <option <?php if ($newUserData["User_Role"] == 1) echo "selected"; ?> value="1"> Subscriber </option>
-                <option <?php if ($newUserData["User_Role"] == 2) echo "selected"; ?> value="2">Admin</option>
-            </select>
+            <p> <?= ($newUserData["User_Role"] == 1) ? "Subscriber" :"Admin" ?></p>
         </div>
         <div class="form-group">
             <label for="Verified">Verify status</label>
-            <select class="form-control" name="Verified">
-                <option <?php if ($newUserData["Verified"] == 0) echo "selected"; ?> value="0"> Pendidng </option>
-                <option <?php if ($newUserData["Verified"] == 1) echo "selected"; ?> value="1"> Verified </option>
-            </select>
+            <p> <?= ($newUserData["Verified"] == 0) ? "Pendidng" :"Verified" ?></p>
         </div>
         <div class="form-group">
             <label for="Verification_ID">Verification ID</label>
@@ -152,10 +142,7 @@ require_once('../header.php');
         </div>
         <div class="form-group">
             <label for="Status">Status</label>
-            <select class="form-control" name="Status">
-                <option <?php if ($newUserData["Status"] == 1) echo "selected"; ?> value="1"> Active</option>
-                <option <?php if ($newUserData["Status"] == 0) echo "selected"; ?> value="0">In Active</option>
-            </select>
+            <p> <?= ($newUserData["Status"] == 0) ? "In Active" :"Active" ?></p>
         </div>
         <button type="submit" class="btn btn-primary" name="submit">Submit</button>
     </form>

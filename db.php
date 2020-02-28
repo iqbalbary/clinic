@@ -7,20 +7,6 @@
  {
  	echo "failed to connect to MySQL:".mysqli_connect_error();
  }
- $monthArray = array(
-     1 => 'January',
-     2 => 'February',
-     3 => 'March',
-     4 => 'April',
-     5 => 'May',
-     6 => 'June',
-     7 => 'July',
-     8 => 'Augest',
-     9 => 'September',
-     10 => 'Octbpr',
-     11 => 'November',
-     12 => 'December'
-    );
 
  function updateData($tableName= "", $data=array(), $condition=array()){
     $sql = updateSql( $tableName, $data, $condition );

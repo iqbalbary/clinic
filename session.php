@@ -6,9 +6,11 @@ error_reporting(E_ALL);
 $base_url = "http://localhost/clinic/";
 require_once 'db.php';
 $isSession = false;
+$loginUserId = "";
 $userRole = 1;
 if (isset($_SESSION["USER_ID"])) {
     $isSession = true;
+    $loginUserId = $_SESSION["USER_ID"];
     $userRole = $_SESSION["User_Role"];
 }
 

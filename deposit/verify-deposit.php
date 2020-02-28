@@ -57,6 +57,7 @@ if (isset($_POST['Deposite_ID'])) {
     $UserDepositUpdateArray = array(
         "Verification_ID" => $_SESSION["USER_ID"],
         "Verification" => 1,
+        "Verification_date" => time()
     );
     $updateFlag = updateData("deposite", $UserDepositUpdateArray, $userDepositCondintion);
     if ($updateFlag) {
@@ -71,14 +72,13 @@ require '../header.php';
     <form action="" method='post'>
         <div class="form-group">
             <label for="Profile ID">Profile ID</label>
-            <div class="profile-data-container">
+            <div class="profile-data-container" id="profileDataContainerId" multiSelectAtt="1">
                 <div class="custom-input">
                     <?php
                     foreach ($selectedUserIds as $selectedUserId) { ?>
                         <div class="input-item-block">
                             <img src="<?php echo $base_url . 'uploads/User/Image/' . trim($userListArr[$selectedUserId]['Image'] ? $userListArr[$selectedUserId]['Image'] : 'avater.jpg') ?>">
                             <span> <?php echo $userListArr[$selectedUserId]['Name']; ?> </span>
-
                         </div>
                     <?php } ?>
                 </div>
