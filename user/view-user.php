@@ -2,6 +2,7 @@
 //Edit user
 //Normal User can edit select field, admin can edit all
 require_once('../session.php');
+require_once("../helper.php");
 isAuthorize();
 $condintion = array();
 $id = $_SESSION["USER_ID"];
@@ -15,6 +16,8 @@ $condintion[] = array(
     'symbol' => " = ",
     'value' => $id
 );
+$userListArr = dataFetchUsingTable("User", array('USER_ID', "Image", "Name"));
+$userDataMap = dataMapByUniqeField("USER_ID", $userListArr);
 
 $getNewUserDataArr =  dataFetchUsingTable("User", array('*'),  $condintion);
 
@@ -37,14 +40,6 @@ require_once('../header.php');
         <div class="form-group">
             <label for="User_Role">User Role</label>
             <p> <?= ($newUserData["User_Role"] == 1) ?  "Subscriber" : "Admin" ?> </p>
-        </div>
-        <div class="form-group">
-            <label for="Verified">Verify status</label>
-            <p> <?= ($newUserData["Verified"] == 0) ?  "Pendidng" : "Verified" ?> </p>
-        </div>
-        <div class="form-group">
-            <label for="Verification_ID">Verification ID</label>
-            <p> <?php echo $newUserData["Verification_ID"] ?> </p>
         </div>
         <div class="form-group">
             <label for="Image">Image</label>
@@ -109,6 +104,23 @@ require_once('../header.php');
             <label for="Status">Status</label>
             <p> <?= $newUserData["Status"] == 1 ?   "Active" : " In Active" ?> </p>
         </div>
+
+        <div class="form-group">
+            <label for="Verified">Verify status</label>
+            <p> <?= ($newUserData["Verified"]) ?  "Verified by " . $userDataMap[$newUserData['Verification_ID']]['Name']  . " at " . date( " Y-m-d",$newUserData['Verification_date']) : " not verified" ?> </p>
+            <?php
+
+            if ($userRole == 2 && !$newUserData["Verified"]) {
+
+            ?>
+
+                <a href="<?= $base_url . "user/verified.php?id=". $newUserData['USER_ID'] ?>"> verify </a>
+            <?php
+            }
+
+            ?>
+        </div>
+
     </form>
 </div>
 <?php

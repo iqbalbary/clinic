@@ -33,7 +33,7 @@ if ($depositDetailsData['Verification']) {
     exit;
 }
 
-if($loginUserId !=  $depositDetailsData['submission_id']){
+if ($loginUserId !=  $depositDetailsData['submission_id']) {
     header("Location: " . $base_url . "deposit/deposits.php");
     exit;
 }
@@ -44,7 +44,7 @@ if (isset($_POST['Amount'])) {
         "Profile_ID" => $_POST['Profile_ID'],
         "Amount" => $_POST['Amount'],
         "late_fine" => @$_POST["late_fine"],
-        "Short_Description"=> trim(@$_POST['Short_Description']),
+        "Short_Description" => trim(@$_POST['Short_Description']),
         "Date" => time(),
         "Month" => implode(",", $_POST['Month']),
         "Verification" => 0,
@@ -61,7 +61,7 @@ if (isset($_POST['Amount'])) {
     $updateFlag = updateData("deposite", $updateArr, $userDepositCondintion);
 
     if ($updateFlag) {
-        header("Location: " . $base_url . "deposit/edit-deposit.php?deposit-id=".$depositId);
+        header("Location: " . $base_url . "deposit/edit-deposit.php?deposit-id=" . $depositId);
         exit;
     }
 }
@@ -75,17 +75,17 @@ require_once '../header.php';
             <label for="Profile ID">Profile ID</label>
             <input type="text" class="Profile_ID" id="Profile_ID" value="<?= $depositDetailsData['Profile_ID'] ?>" required="true" name="Profile_ID">
             <div class="profile-data-container" id="profileDataContainerId" multiSelectAtt="1">
-                <div class="custom-input">
-
-                <?php
+                <div class="custom-input"></div>
+                <div class="custom-selected-block">
+                    <?php
                     foreach ($selectedUserIds as $selectedUserId) { ?>
                         <div class="input-item-block">
                             <img src="<?php echo $base_url . 'uploads/User/Image/' . trim($userListArrMap[$selectedUserId]['Image'] ? $userListArrMap[$selectedUserId]['Image'] : 'avater.jpg') ?>">
                             <span> <?php echo $userListArrMap[$selectedUserId]['Name']; ?> </span>
                         </div>
                     <?php } ?>
+
                 </div>
-                <div class="custom-selected-block"></div>
                 <div class="list-item-container" data-user-list='<?php echo $userListStr; ?>'>
                     <?php
                     foreach ($userListArr as $row) { ?>
@@ -109,16 +109,16 @@ require_once '../header.php';
             <label for="Month">Month</label>
             <select class="js-Month-multiple" name="Month[]" multiple="multiple">
                 <?php foreach ($MonthYearListMap as $key => $monthName) { ?>
-                    <option  value="<?php echo $key; ?>" <?= in_array( $key , $preSelectedMonthArr ) ? "selected" : "" ?>  >  <?php echo $monthName['month_name'] . " " . $monthName['year']; ?> </option>
+                    <option value="<?php echo $key; ?>" <?= in_array($key, $preSelectedMonthArr) ? "selected" : "" ?>> <?php echo $monthName['month_name'] . " " . $monthName['year']; ?> </option>
                 <?php } ?>
             </select>
         </div>
         <div class="form-group">
             <label for="Deposite_Slip"> Deposite Slip </label>
             <input type="file" class="form-control-file" name="Deposite_Slip" id="Deposite_Slip">
-            <?php if($depositDetailsData['Deposite_Slip']){ ?>
-            <img src="<?php echo $base_url . 'uploads/Deposite/Deposite_Slip/' . trim($depositDetailsData['Deposite_Slip'] ? $depositDetailsData['Deposite_Slip'] : 'avater.jpg') ?>" alt="slip img">
-            <?php }?>
+            <?php if ($depositDetailsData['Deposite_Slip']) { ?>
+                <img src="<?php echo $base_url . 'uploads/Deposite/Deposite_Slip/' . trim($depositDetailsData['Deposite_Slip'] ? $depositDetailsData['Deposite_Slip'] : 'avater.jpg') ?>" alt="slip img">
+            <?php } ?>
         </div>
         <div class="form-group">
             <label for="Short_Description">Short Description</label>

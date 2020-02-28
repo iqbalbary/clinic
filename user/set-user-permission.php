@@ -19,9 +19,7 @@ if (isset($_POST['Profile_ID'])) {
     $updateData = array(
         "USER_ID" => $selectedUserId,
         "User_Role" => $_POST['User_Role'],
-        "Verified" => $_POST['Verified'],
-        "Verification_ID" => $loginUserId,
-        "Verification_date" => time()
+        "Status" => $_POST['Status']
     );
     $updateFlag =  updateData("User", $updateData, $condintion);
 }
