@@ -25,7 +25,7 @@ if (isset($_POST) && sizeof($_POST)) {
     $updateDataArray = array();
     foreach ($newUserData as $key =>  $value) {
         if (isset($_POST[$key]) && $_POST[$key] != $value) {
-            $updateDataArray[$key] = $_POST[$key];
+            $updateDataArray[$key] = trim($_POST[$key]);
         }
     }
     if (isset($updateDataArray['USER_ID'])) {
@@ -34,9 +34,14 @@ if (isset($_POST) && sizeof($_POST)) {
 
     if (isset($_FILES["Image"])) {
         $target_dir = "../uploads/User/Image";
+
         $imgUploadStatus =  fileUpload($target_dir, "Image");
         if ($imgUploadStatus['status']) {
             $updateDataArray['Image'] = $imgUploadStatus['fileName'];
+            if(isset($newUserData["Image"])){
+                $oldFile =  $basePath."uploads/User/Image/".$newUserData['Image'];
+                deleteFile($oldFile);
+            }
         }
     }
 
@@ -45,6 +50,10 @@ if (isset($_POST) && sizeof($_POST)) {
         $NidUploadStatus =  fileUpload($target_dir, "NID_Screenshot");
         if ($NidUploadStatus['status']) {
             $updateDataArray['NID_Screenshot'] = $NidUploadStatus['fileName'];
+            if(isset($newUserData["NID_Screenshot"])){
+                $oldFile =  $basePath . "uploads/User/NID_Screenshot/".$newUserData['NID_Screenshot'];
+                deleteFile($oldFile);
+            }
         }
     }
 

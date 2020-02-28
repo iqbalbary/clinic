@@ -20,6 +20,8 @@ if ($_POST  && isset($_POST["USER_ID"])) {
         if ($loginUserData['Password'] == sha1($_POST["Password"])) {
             $_SESSION["USER_ID"] = $loginUserData['USER_ID'];
             $_SESSION["User_Role"] = $loginUserData['User_Role'];
+            $_SESSION["Name"] = $loginUserData['Name'];
+            $_SESSION["image"] = $loginUserData['Image'];
             header("Location: " . $base_url . "index.php");
             exit;
         }

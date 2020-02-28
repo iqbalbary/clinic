@@ -49,7 +49,7 @@
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="<?= $base_url; ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
+                            <a href="<?= $base_url; ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <img src="<?= $userImage ?>"  style="height:25px;width:auto;    border-radius:100%;" alt="profile pic"> <?= $userName ?> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="<?= $base_url; ?>user/users.php">Users</a></li>
                                 <li><a href="<?= $base_url; ?>user/edit-user.php">Edit Profile</a></li>
