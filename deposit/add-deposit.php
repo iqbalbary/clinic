@@ -62,7 +62,7 @@ require_once '../header.php';
         </div>
         <div class="form-group">
             <label for="late_fine">Late Fine</label>
-            <input type="Number" required="required" class="form-control" required="true" name="late_fine" placeholder="500">
+            <input type="Number"  class="form-control" name="late_fine" placeholder="500">
         </div>
         <div class="form-group">
             <label for="Month">Month</label>

@@ -83,7 +83,7 @@ require '../header.php';
                     <th>Month</th>
                     <th>Amount</th>
                     <th>Late fine</th>
-                    <th>Deposit image</th>
+                    <th>Deposit profile image</th>
                 </tr>
             </thead>
             <tbody>

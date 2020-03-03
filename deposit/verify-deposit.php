@@ -63,6 +63,8 @@ if (isset($_POST['Deposite_ID'])) {
     if ($updateFlag) {
         $depositDetailsData["Verification_ID"] = $_SESSION["USER_ID"];
         $depositDetailsData["Verification"] = 1;
+        header("Location: " . $base_url . "deposit/view-deposit.php?deposit-id=".$depositDetailsData["Deposite_ID"]);
+        exit;
     }
 }
 require '../header.php';
@@ -128,7 +130,7 @@ require '../header.php';
                     </div>
                     <div class="form-group">
                         <label for="late fine ">Late fine </label>
-                        <input type="Number" required="required" class="form-control" required="true" name="user-<?= $selectedUserId ?>-month-<?= $selectedMonth ?>-late-fine" placeholder="500">
+                        <input type="Number"  class="form-control"  name="user-<?= $selectedUserId ?>-month-<?= $selectedMonth ?>-late-fine" placeholder="500">
                     </div>
             <?php }
             } ?>

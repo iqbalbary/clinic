@@ -23,6 +23,7 @@ require_once '../header.php';
                         <th>Deposit profile</th>
                         <th>Month</th>
                         <th>Amount</th>
+                        <th>Late fine</th>
                         <th>Slip Image </th>
                         <th>staus</th>
                     </tr>
@@ -52,10 +53,15 @@ require_once '../header.php';
                                 ?>
                             </td>
                             <td> <?= $data['Amount']; ?> </td>
-                            <td> <img src="<?= $base_url . "uploads/Deposite/Deposite_Slip/" . $data['Deposite_Slip']; ?>" alt="slipimage"> </td>
+                            <td> <?= $data['late_fine']; ?> </td>
+                            <td> <?php if($data['Deposite_Slip']){  ?>  <img src="<?= $base_url . "uploads/Deposite/Deposite_Slip/" . $data['Deposite_Slip']; ?>" alt="slipimage"> <?php } ?> </td>
                             <td>
                                 <?php if ($data['Verification']) { ?>
                                     Verified <br> by <br> <span> <?= $userDataMap[$data['Verification_ID']]['Name'] ?> </span>
+                                    <br>
+                                    <a href="<?= $base_url ?>deposit/view-deposit.php?deposit-id=<?= $data['Deposite_ID'] ?>">
+                                        Details
+                                    </a>
                                     <?php } else {
                                     if ($userRole == 2) {
                                     ?>
