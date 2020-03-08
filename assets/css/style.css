@@ -1,7 +1,119 @@
 /*------------------------------------*\
     Main CSS
 \*------------------------------------*/
+img{
+	height: 250px;
+	width: 250px;
+}
+img.profile_img{
+	border-radius: 50%;
+}
+.js-Month-multiple{
+	width: 100%;
+}
+.js-profile-multiple{
+	width: 100%;
+}
 
+.Profile_ID{
+	height: 0;
+	width: 0;
+	padding: 0;
+	border-width: 0;
+}
+
+.custom-input{
+	min-height: 40px;
+	border:  1px solid #cccc;
+	width: 100%;
+	border-radius: 5px;
+	display: flex;
+}
+
+.custom-selected-block{
+	min-height: 40px;
+	min-width: 0px;
+	max-width: 100%;
+	border:  1px solid #cccc;
+	border-radius: 5px;
+	display: flex !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+
+.profile-data-container{
+	min-height: 40px;
+	position: relative;
+
+}
+.list-item-container{
+	width: 100%;
+	min-height: 40px;
+	z-index: 300;
+	display: none;
+	background-color: #ffff;
+	position: relative;
+}
+
+.list-item-container .item {
+	border: 1px solid #cccc;
+	cursor: pointer;
+	position: relative;
+}
+
+.image-label-block{
+	display: flex;
+	flex-direction: column;
+}
+
+.list-item-container .item span{
+	padding-left: 15px;
+}
+
+.list-item-container .item img{
+	height: 40px;
+	width: 40px;
+	border-radius: 100%;
+}
+.input-item-block{
+	height: 37px;
+	min-width: 70px;
+	border: 1px solid #cccccc;
+	justify-content: space-between;
+	border-radius: 5px;
+	cursor: pointer;
+	display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.input-item-block:last-child {
+    margin-right: 0px;
+}
+
+.input-item-block img{
+	display: block;
+	height: 37px;
+	width: 37px;
+	border-radius: 50%;
+}
+
+.user-month-name-image-container{
+	display: flex;
+	align-items: center;
+}
+
+.user-month-name-image-container img{
+	width: 60px;
+	height: 60px;
+	margin-right: 20px;
+    border-radius: 100%;
+}
+.user-month-name-image-container .user-name{
+	margin-right: 20px;
+}
 
 /*------------------------------------*\
     MOBILE QUERY CSS
