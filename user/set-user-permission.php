@@ -1,10 +1,10 @@
 <?php
 //Add new user - Form
 //Only for Admin
-require_once('../session.php');
-require_once('../helper.php');
+require_once '../session.php';
+require_once '../helper.php';
 isAdminUser();
-$userListArr = dataFetchUsingTable("User", array('USER_ID', "Image", "Name"));
+$userListArr = dataFetchUsingTable("user", array('USER_ID', "Image", "Name"));
 $userListStr = json_encode($userListArr);
 $userDataMap = dataMapByUniqeField("USER_ID", $userListArr);
 
@@ -14,16 +14,16 @@ if (isset($_POST['Profile_ID'])) {
     $condintion[] = array(
         'fieldName' => 'USER_ID',
         'symbol' => " = ",
-        'value' => $selectedUserId
+        'value' => $selectedUserId,
     );
     $updateData = array(
         "USER_ID" => $selectedUserId,
         "User_Role" => $_POST['User_Role'],
-        "Status" => $_POST['Status']
+        "Status" => $_POST['Status'],
     );
-    $updateFlag =  updateData("User", $updateData, $condintion);
+    $updateFlag = updateData("user", $updateData, $condintion);
 }
-require_once('../header.php');
+require_once '../header.php';
 ?>
 <div class="container">
     <form action="" method='post'>
@@ -35,12 +35,13 @@ require_once('../header.php');
                 <div class="custom-selected-block"></div>
                 <div class="list-item-container" data-user-list='<?php echo $userListStr; ?>'>
                     <?php
-                    foreach ($userDataMap as $row) { ?>
-                        <div class="item p-list-item" data-id="<?php echo $row['USER_ID']; ?>">
-                            <img src="<?php echo $base_url . "uploads/User/Image/" . trim($row["Image"] ? $row["Image"] : 'avater.jpg') ?>">
-                            <span> <?php echo $row['Name']; ?> </span>
-                        </div>
-                    <?php } ?>
+foreach ($userDataMap as $row) {?>
+                    <div class="item p-list-item" data-id="<?php echo $row['USER_ID']; ?>">
+                        <img
+                            src="<?php echo $base_url . "uploads/User/Image/" . trim($row["Image"] ? $row["Image"] : 'avater.jpg') ?>">
+                        <span> <?php echo $row['Name']; ?> </span>
+                    </div>
+                    <?php }?>
                 </div>
             </div>
         </div>
@@ -65,4 +66,4 @@ require_once('../header.php');
 </div>
 <?php
 
-require_once('../footer.php');
+require_once '../footer.php';

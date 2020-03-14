@@ -1,15 +1,15 @@
 <?php
-require_once('session.php');
+require_once 'session.php';
 isAuthorize();
-if ($_POST  && isset($_POST["New_Password"])) {
+if ($_POST && isset($_POST["New_Password"])) {
     $condintion = array();
     $condintion[] = array(
         'fieldName' => 'USER_ID',
         'symbol' => " = ",
-        'value' => $_SESSION["USER_ID"]
+        'value' => $_SESSION["USER_ID"],
     );
 
-    $getNewUserDataSql =  fetchAllDataById("User", array('*'),  $condintion);
+    $getNewUserDataSql = fetchAllDataById("user", array('*'), $condintion);
     $loginUserDataObj = $db->query($getNewUserDataSql);
 
     if ($loginUserDataObj->num_rows > 0) {
@@ -17,10 +17,10 @@ if ($_POST  && isset($_POST["New_Password"])) {
         $loginUserData['USER_ID'];
         if ($loginUserData['Password'] == sha1($_POST["Old_Password"])) {
             $updateDataArray = array(
-                "Password" => sha1($_POST["New_Password"])
+                "Password" => sha1($_POST["New_Password"]),
             );
 
-            $updateSqlStr = updateSql("User", $updateDataArray, $condintion);
+            $updateSqlStr = updateSql("user", $updateDataArray, $condintion);
             $updateFlag = $db->query($updateSqlStr);
 
             if ($updateFlag) {
@@ -30,7 +30,7 @@ if ($_POST  && isset($_POST["New_Password"])) {
         }
     }
 }
-require_once('header.php');
+require_once 'header.php';
 
 ?>
 
@@ -50,4 +50,4 @@ require_once('header.php');
 </div>
 
 <?php
-require_once('footer.php');
+require_once 'footer.php';

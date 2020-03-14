@@ -1,19 +1,19 @@
 <?php
-require_once('session.php');
+require_once 'session.php';
 if ($isSession) {
     header("Location: " . $base_url . "index.php");
     exit;
 }
 
-if ($_POST  && isset($_POST["USER_ID"])) {
+if ($_POST && isset($_POST["USER_ID"])) {
     $condintion = array();
     $condintion[] = array(
         'fieldName' => 'USER_ID',
         'symbol' => " = ",
-        'value' => $_POST["USER_ID"]
+        'value' => $_POST["USER_ID"],
     );
 
-    $loginUserDataArr =  dataFetchUsingTable("User", array('*'),  $condintion);
+    $loginUserDataArr = dataFetchUsingTable("user", array('*'), $condintion);
 
     if (sizeof($loginUserDataArr) > 0) {
         $loginUserData = $loginUserDataArr[0];
@@ -27,7 +27,7 @@ if ($_POST  && isset($_POST["USER_ID"])) {
         }
     }
 }
-include('header.php');
+include 'header.php';
 ?>
 <div class="container">
     <form action="" method='post'>
@@ -44,4 +44,4 @@ include('header.php');
 </div>
 
 <?php
-require_once('footer.php');
+require_once 'footer.php';

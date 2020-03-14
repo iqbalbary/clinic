@@ -1,5 +1,5 @@
 <?php
-require_once('../session.php');
+require_once '../session.php';
 isAdminUser();
 $toVeryId = "";
 if (isset($_GET['id'])) {
@@ -14,25 +14,24 @@ $condition[] = array(
     'value' => $toVeryId,
 );
 $depositDetailsDataArr = dataFetchUsingTable("user", array(), $condition);
-if($depositDetailsDataArr && $depositDetailsDataArr[0] &&  !$depositDetailsDataArr[0]['Verified']){
+if ($depositDetailsDataArr && $depositDetailsDataArr[0] && !$depositDetailsDataArr[0]['Verified']) {
     $condintion[] = array(
         'fieldName' => 'USER_ID',
         'symbol' => " = ",
-        'value' => $toVeryId
+        'value' => $toVeryId,
     );
     $updateData = array(
         "Verified" => 1,
         "Verification_ID" => $loginUserId,
-        "Verification_date" => time()
+        "Verification_date" => time(),
     );
-    $updateFlag =  updateData("User", $updateData, $condintion);
-    if($updateFlag){
-        header("Location: " . $base_url . "user/view-user.php?id=". $toVeryId);
-    }else{
-        header("Location: " . $base_url . "user/view-user.php?id=". $toVeryId);
+    $updateFlag = updateData("user", $updateData, $condintion);
+    if ($updateFlag) {
+        header("Location: " . $base_url . "user/view-user.php?id=" . $toVeryId);
+    } else {
+        header("Location: " . $base_url . "user/view-user.php?id=" . $toVeryId);
     }
-}else{
-    header("Location: " . $base_url . "user/view-user.php?id=". $toVeryId);
+} else {
+    header("Location: " . $base_url . "user/view-user.php?id=" . $toVeryId);
     exit;
 }
-

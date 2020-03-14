@@ -1,10 +1,10 @@
 <?php
 //All User List
-require_once('../session.php');
+require_once '../session.php';
 isAuthorize();
-require_once('../header.php');
+require_once '../header.php';
 
-$userListArr = dataFetchUsingTable("User", array('*'));
+$userListArr = dataFetchUsingTable("user", array('*'));
 ?>
 <div class="container">
     <div class="row">
@@ -22,20 +22,21 @@ $userListArr = dataFetchUsingTable("User", array('*'));
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($userListArr as $row) {
-                    ?>
-                        <tr>
-                            <td> <?php echo $row["USER_ID"]; ?></td>
-                            <td> <?php echo $row["Name"]; ?> </td>
-                            <td> <?php echo $row["Status"] ? "Active" : "In Active" ?></td>
-                            <td> <?= $row["User_Role"] == 1 ? "Subscriber" : "Admin" ?></td>
-                            <td> <?php echo $row["Verified"] ? "Verified" : "Pendidng" ?> </td>
-                            <td> <a href="<?php echo $base_url . "user/view-user.php?id=" . $row["USER_ID"]; ?>">User detail</a>
-                            </td>
-                        </tr>
+foreach ($userListArr as $row) {
+    ?>
+                    <tr>
+                        <td> <?php echo $row["USER_ID"]; ?></td>
+                        <td> <?php echo $row["Name"]; ?> </td>
+                        <td> <?php echo $row["Status"] ? "Active" : "In Active" ?></td>
+                        <td> <?=$row["User_Role"] == 1 ? "Subscriber" : "Admin"?></td>
+                        <td> <?php echo $row["Verified"] ? "Verified" : "Pendidng" ?> </td>
+                        <td> <a href="<?php echo $base_url . "user/view-user.php?id=" . $row["USER_ID"]; ?>">User
+                                detail</a>
+                        </td>
+                    </tr>
                     <?php
-                    }
-                    ?>
+}
+?>
                 </tbody>
             </table>
         </div>
@@ -43,5 +44,5 @@ $userListArr = dataFetchUsingTable("User", array('*'));
 </div>
 
 <?php
-require_once('../footer.php');
+require_once '../footer.php';
 ?>

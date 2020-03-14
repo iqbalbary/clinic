@@ -1,10 +1,10 @@
 <?php
 // Add Deposit Form
-require_once('../session.php');
+require_once '../session.php';
 isAuthorize();
 require_once '../fileUpload.php';
 require_once '../helper.php';
-$userListArr = dataFetchUsingTable("User", array('USER_ID', "Image", "Name"));
+$userListArr = dataFetchUsingTable("user", array('USER_ID', "Image", "Name"));
 $userListStr = json_encode($userListArr);
 $MonthYearListArr = dataFetchUsingTable("month_year", array('id', "month_name", "year"));
 $MonthYearListMap = dataMapByUniqeField("id", $MonthYearListArr);
@@ -16,7 +16,7 @@ if (isset($_POST['Amount'])) {
         "Amount" => $_POST['Amount'],
         "late_fine" => @$_POST["late_fine"],
         "Date" => time(),
-        "Short_Description"=> @$_POST['Short_Description'],
+        "Short_Description" => @$_POST['Short_Description'],
         "Month" => implode(",", $_POST['Month']),
         "Verification" => 0,
     );
@@ -47,29 +47,32 @@ require_once '../header.php';
                 <div class="custom-selected-block"></div>
                 <div class="list-item-container" data-user-list='<?php echo $userListStr; ?>'>
                     <?php
-                    foreach ($userListArr as $row) { ?>
-                        <div class="item p-list-item" data-id="<?php echo $row['USER_ID']; ?>">
-                            <img src="<?php echo $base_url . "uploads/User/Image/" . trim($row["Image"] ? $row["Image"] : 'avater.jpg') ?>">
-                            <span> <?php echo $row['Name']; ?> </span>
-                        </div>
-                    <?php } ?>
+foreach ($userListArr as $row) {?>
+                    <div class="item p-list-item" data-id="<?php echo $row['USER_ID']; ?>">
+                        <img
+                            src="<?php echo $base_url . "uploads/User/Image/" . trim($row["Image"] ? $row["Image"] : 'avater.jpg') ?>">
+                        <span> <?php echo $row['Name']; ?> </span>
+                    </div>
+                    <?php }?>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label for="Amount">Amount</label>
-            <input type="Number" required="required" class="form-control" required="true" name="Amount" placeholder="5000">
+            <input type="Number" required="required" class="form-control" required="true" name="Amount"
+                placeholder="5000">
         </div>
         <div class="form-group">
             <label for="late_fine">Late Fine</label>
-            <input type="Number"  class="form-control" name="late_fine" placeholder="500">
+            <input type="Number" class="form-control" name="late_fine" placeholder="500">
         </div>
         <div class="form-group">
             <label for="Month">Month</label>
             <select class="js-Month-multiple" name="Month[]" multiple="multiple">
-                <?php foreach ($MonthYearListMap as $key => $monthName) { ?>
-                    <option value="<?php echo $key; ?>"> <?php echo $monthName['month_name'] . " ". $monthName['year'] ; ?> </option>
-                <?php } ?>
+                <?php foreach ($MonthYearListMap as $key => $monthName) {?>
+                <option value="<?php echo $key; ?>"> <?php echo $monthName['month_name'] . " " . $monthName['year']; ?>
+                </option>
+                <?php }?>
             </select>
         </div>
         <div class="form-group">
@@ -78,7 +81,8 @@ require_once '../header.php';
         </div>
         <div class="form-group">
             <label for="Short_Description">Short Description</label>
-            <textarea type="textarea"  class="md-textarea form-control" required="true" name="Short_Description" placeholder="Short Description" rows="10"> </textarea>
+            <textarea type="textarea" class="md-textarea form-control" required="true" name="Short_Description"
+                placeholder="Short Description" rows="10"> </textarea>
         </div>
         <button type="submit" class="btn btn-primary" name='submit'>Submit</button>
     </form>
